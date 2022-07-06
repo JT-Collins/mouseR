@@ -48,6 +48,7 @@ options("openxlsx.numFmt" = "0.00")
 addWorksheet(wb, "Mouse Weights")
 addWorksheet(wb, "Clinical Score")
 addWorksheet(wb, "Stool Weights")
+addWorksheet(wb, "CFU")
 addWorksheet(wb, "Survival")
 insertImage(wb, "Clinical Score", img, startRow = 2, startCol = 8, width = 8.19, height = 2.13, units = "in") # add our Clinical scores table
 
@@ -56,6 +57,8 @@ weight_names <- c("Group", "Mouse", "Min Weight","Sex", 0:exp_length) #col names
 weight_names2 <- c("Group", "Mouse", "Weight (mg)", 0:exp_length) #col names for stool weights page
 surv_names <- c("Group", "Time", "Dead", "Alive", "1-(dead/alive)", "S(t)")
 surv_names2 <- c("Group", "Time", "S(t)", "Order")
+cfu_names <- c("Group", "Mouse", "Morphotype", 1:exp_length)
+
 
 weight_dat <- data.frame(
   x = rep(group_name,times = mouse_num),
@@ -69,6 +72,13 @@ stool_dat <- data.frame(
   x = rep(group_name,times = mouse_num*3),
   y = rep(c(paste0(rep(group_name,times = mouse_num), "_", mnum)), each = 3),
   z = rep(c("Tube", "Total", "Stool"), times = total_mice)
+)
+
+
+cfu_dat <- data.frame(
+  Group = rep(group_name,times = mouse_num*3),
+  Mouse = rep(c(paste0(rep(group_name,times = mouse_num), "_", mnum)), each = 3),
+  Morphotype = rep(c("Total", "Spores", "Vegetative"), times = total_mice)
 )
 
 clin_dat <- data.frame(
@@ -138,16 +148,19 @@ low_weight <- createStyle(fontColour = "#9C0006", bgFill = "#FFC7CE")
 
 addStyle(wb, sheet = "Mouse Weights", style = BoldCtrUnder,
          rows = 2, cols = 1:(exp_length + 5), gridExpand = FALSE, stack = FALSE) #Bold Underline headers
+
 addStyle(wb, sheet = "Mouse Weights", style = BoldCtrUnder,
          rows = 6 + total_mice, cols = 3:(exp_length + 5), gridExpand = FALSE, stack = FALSE) #Bold Underline headers
 
 addStyle(wb, sheet = "Mouse Weights", style = BoldCtr,
          rows = 1, cols = 5, gridExpand = FALSE, stack = FALSE) #Bold Ctr "Days"
+
 addStyle(wb, sheet = "Mouse Weights", style = BoldCtr,
          rows = 5 + total_mice, cols = 5, gridExpand = FALSE, stack = FALSE) #Bold Ctr "Days"
 
 addStyle(wb, sheet = "Mouse Weights", style = Ctr,
          rows = 3:((total_mice)+2), cols = 1:4, gridExpand = T, stack = TRUE)
+
 addStyle(wb, sheet = "Mouse Weights", style = Ctr,
          rows = (7 + total_mice):(((total_mice)*2)+6), cols = 1:4, gridExpand = T, stack = TRUE)
 
@@ -164,6 +177,14 @@ addStyle(wb, sheet = "Clinical Score", style = BoldCtrUnder,
 
 addStyle(wb, sheet = "Clinical Score", style = Ctr,
          rows = 2:((total_mice) * 5 * exp_length), cols = 1:3, gridExpand = T, stack = TRUE)
+
+# CFU Style
+addStyle(wb, sheet = "CFU", style = BoldCtrUnder,
+         rows = 1, cols = 1:(exp_length+3), gridExpand = FALSE, stack = FALSE) #Bold Underline headers
+
+addStyle(wb, sheet = "CFU", style = Ctr,
+         rows = 2:((total_mice * 3) + 1 ), cols = 1:(exp_length+3), gridExpand = T, stack = TRUE)
+
 
 # Stool weight style
 
@@ -250,18 +271,54 @@ for (d in 6:(exp_length+5)){
   }
 }
 
+
+# CFUs --------------------------------------------------------------------
+
+writeData(wb, "CFU", x = t(cfu_names), startRow = 1,colNames = FALSE) # Generate column names
+writeData(wb, "CFU", x = cfu_dat, startRow = 2,colNames = FALSE) # Fill in group and mouse names
+
+# Merge "Mouse"
+for (g in seq(2, (total_mice*3), by= 3))
+{
+  mergeCells(wb, "CFU", cols = 2,
+             rows = g:(g+2)
+  ) # Merge mouse name cells with loop
+}
+
+current = 2
+for (g in 1:group_num){
+
+  mergeCells(wb, "CFU", cols = 1,
+             rows = current :((current + mouse_num[g]*3)-1)) # Merge group name cells with loop
+  current = current + mouse_num[g]*3
+}
+
+# add some colour to distinguish the groups
+current = 2
+  for (c in 1:group_num)
+  {
+    new_bg <-
+      createStyle(fgFill = bg_colours[c],
+                  border = "TopBottomLeftRight")
+
+    addStyle(
+      wb,
+      "CFU",
+      new_bg  ,
+      cols = 1:(exp_length+3),
+      rows = current:(current + (mouse_num[c] * 3) - 1) ,
+      gridExpand = T,
+      stack = T
+    )
+
+    current = current + mouse_num[c] * 3
+  }
+
+
+
 # Clinical Score ----------------------------------------------------------
 
 writeData(wb, "Clinical Score", x = clin_dat, startRow = 1,colNames = TRUE) # Fill in group and mouse names
-
-
-# # Merge "Group"
-# for (g in seq(2, ((total_mice*5)*exp_length), by= (total_mice*5)))
-# {
-#   mergeCells(wb, "Clinical Score", cols = 2,
-#              rows = g:(g+4)
-#   ) # Merge mouse name cells with loop
-# }
 
 # Merge "Mouse"
 for (g in seq(2, ((total_mice*5)*exp_length), by= 5))
@@ -269,6 +326,18 @@ for (g in seq(2, ((total_mice*5)*exp_length), by= 5))
   mergeCells(wb, "Clinical Score", cols = 3,
              rows = g:(g+4)
   ) # Merge mouse name cells with loop
+}
+
+# merge Group
+current = 2
+for (x in 1:exp_length) {
+for (g in 1:group_num){
+
+  mergeCells(wb, "Clinical Score", cols = 2,
+             rows = current :((current + mouse_num[g] * 5) - 1)) # Merge group name cells with loop
+
+  current = current + mouse_num[g] * 5
+}
 }
 
 # add some colour to distinguish the groups
