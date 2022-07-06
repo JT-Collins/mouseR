@@ -1,0 +1,217 @@
+---
+title: "Mouse Work"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::robobook:
+    highlight: kate
+params: 
+  data: "ExcelSheet"
+  mouseNum: NULL
+  exp_length: NULL    
+editor_options: 
+  chunk_output_type: console
+---
+```{r setup, include=FALSE}
+## Global options
+knitr::opts_chunk$set(cache = FALSE)
+knitr::opts_chunk$set(fig.retina = 1)
+knitr::opts_chunk$set(dev = "ragg_png")
+knitr::opts_chunk$set(fig.align = 'center')
+```
+
+```{r}
+if(!require(pacman))install.packages("pacman")
+
+pacman::p_load(
+  'readxl', #
+  'janitor', #
+  'dplyr', #
+  'labPlots', #
+  'tidyr',
+  'gapminder',
+  'ggplot2',
+  'patchwork',
+  'ggalt',
+  'ragg',
+  'forcats',
+  'R.utils',
+  'png',
+  'grid',
+  'ggpubr',
+  'scales',
+  'rstatix',
+  'pander'
+)
+
+labPlots::lab_fonts()
+```
+
+```{r}
+# Excel Column names ------------------------------------------------------
+# Generates a list of excel column names A -> ZZ
+
+all <- expand.grid(LETTERS, LETTERS)
+all <- all[order(all$Var1,all$Var2),]
+excel_col <- c(LETTERS, do.call('paste0',all))
+```
+
+
+```{r, message=FALSE}
+dat_file <- params$data
+
+
+
+weights <- read_excel(dat_file,
+                      sheet = "Mouse Weights",
+                      range = paste0("A2:", excel_col[4+params$exp_length],(2 + params$mouseNum)))
+
+
+clinical <- read_excel(dat_file,
+                      sheet = "Clinical Score",
+                      col_types = c("numeric", "text", "text", "numeric")
+)
+
+```
+
+## Mouse Weights
+
+```{r, message=FALSE}
+weights |>
+    janitor::remove_empty() |># Drops columns/rows with only NA values
+    select(-`Min Weight`) |> # For this we just want the daily weights
+    pander()
+```
+
+
+```{r}
+# Tidy and pivot into long form
+cleanDF <-
+  weights |>
+    janitor::remove_empty() |># Drops columns/rows with only NA values
+    select(-`Min Weight`) |> # For this we just want the daily weights
+    pivot_longer(cols = where(is.double), names_to = "Time", values_to = "g") |>
+    mutate_at("Time", as.numeric) |>
+    janitor::clean_names()
+
+```
+
+```{r}
+raw_weight <-
+  cleanDF |>
+  group_by(group, sex, time) |>
+  ggplot(aes(x=time, y=g, group = mouse, colour = sex)) +
+  geom_line(size = 1)+
+  labs(title = "Weight Change by mouse", 
+       caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
+  xlab("Time in days") +
+  ylab("Weight (g)") +
+  facet_wrap(.~group) + lab_style() +
+  NULL
+
+
+```
+
+### raw mouse weights
+
+```{r, fig.fullwidth = TRUE}
+raw_weight
+```
+
+
+```{r, message=FALSE}
+showtext::showtext_opts(dpi = 300)
+ggsave(paste0(rstudioapi::getActiveProject(), "/Weight_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
+showtext::showtext_opts(dpi = 96)
+
+```
+
+### Percent change
+
+```{r}
+per_weight_DF <-
+  cleanDF |>
+  group_by(group, sex, mouse) |>
+  mutate(first = g[time == 0]) |>
+  mutate(pct_change = (g / first) * 100)
+
+
+pander(per_weight_DF)
+```  
+
+```{r}  
+per_weight <-
+per_weight_DF |>  
+  ggplot(aes(x=time, y=pct_change, group = mouse,  colour = sex)) +
+  geom_hline(yintercept = 100, linetype = 3, size = 0.8, alpha = 0.3) +
+  geom_vline(xintercept = 0, linetype = 3, size = 0.8, alpha = 0.3) +
+  geom_hline(yintercept = 80, linetype = 3, size = 0.8, colour = "darkred", alpha = 0.5) +
+  geom_line(size=1) +
+  labs(title = "Percent Weight Change by mouse", 
+      subtitle = "Weight from experiment start",
+      caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
+  xlab("Time in days") +
+  ylab("Percent weight") +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) + # Add percent symbol to your axis labels
+  facet_wrap(group~., nrow =2) + lab_style() +
+  NULL
+```
+
+
+```{r, fig.fullwidth = TRUE}
+
+per_weight
+
+```
+
+
+```{r, message=FALSE}
+showtext::showtext_opts(dpi = 300)
+ggsave(paste0(rstudioapi::getActiveProject(), "/Percent_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
+showtext::showtext_opts(dpi = 96)
+
+```
+
+
+### Average weight change by group/sex
+
+```{r}
+ave_weight_DF <- 
+  per_weight_DF |>
+  group_by(group, time) |>
+  summarise(mean_pct_weight = mean(pct_change, na.rm = TRUE), 
+            std_pct_weight = sd(pct_change, na.rm = TRUE), 
+            mouse_num = sum(!is.na(pct_change)), 
+            .groups = "drop")
+  
+pander(ave_weight_DF)  
+```  
+  
+  
+```{r}
+ave_weight <-
+ave_weight_DF |>
+  ggplot() +
+  geom_hline(yintercept = 100, linetype = 3, size = 0.8, alpha = 0.3) +
+  geom_vline(xintercept = 0, linetype = 3, size = 0.8, alpha = 0.3) +
+  geom_ribbon(aes(x = time, ymin = mean_pct_weight - std_pct_weight, ymax = mean_pct_weight + std_pct_weight,
+                  group = group), alpha = 0.15) +
+  geom_line(aes(x=time, y=mean_pct_weight , group = group), size=1) +
+  geom_text(aes(x=time, y=(max(mean_pct_weight) + 10), label = mouse_num)) +
+  labs(title = "Mean Percent Weight Change With SD", 
+       subtitle = "Weight from experiment start",
+       caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
+  xlab("Time in days") +
+  ylab("Percent weight") +
+  facet_wrap(.~group, nrow =2) + lab_style() +
+  NULL
+
+ave_weight
+
+```
+
+```{r}
+showtext::showtext_opts(dpi = 300)
+ggsave(paste0(rstudioapi::getActiveProject(), "/Ave_Percent_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
+showtext::showtext_opts(dpi = 96)
+```
+
