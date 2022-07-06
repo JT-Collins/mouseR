@@ -50,6 +50,8 @@ mouseEx(Spreadsheet_name = "SugarExp_070622",
 ```
 The spreadsheet will then be generated and placed into your project folder.
 
+## Report
+
 At the end of the experiment (or at any time before) you can generate figures and a report by using the `mreport()` function.
 
 
