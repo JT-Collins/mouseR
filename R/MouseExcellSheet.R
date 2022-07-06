@@ -25,7 +25,7 @@ for (i in mouse_num){
 # Image -------------------------------------------------------------------
 
 # read in image from package
-img <- system.file("figures/clinScore.png", package="labPlots")
+img <- system.file("figures/clinScore.png", package="mouseR")
 
 
 
@@ -49,7 +49,7 @@ addWorksheet(wb, "Mouse Weights")
 addWorksheet(wb, "Clinical Score")
 addWorksheet(wb, "Stool Weights")
 addWorksheet(wb, "Survival")
-insertImage(wb, "Clinical Score", img, startRow = 2, startCol = 6, width = 8.19, height = 2.13, units = "in") # add our Clinical scores table
+insertImage(wb, "Clinical Score", img, startRow = 2, startCol = 8, width = 8.19, height = 2.13, units = "in") # add our Clinical scores table
 
 
 weight_names <- c("Group", "Mouse", "Min Weight","Sex", 0:exp_length) #col names for weights page
@@ -74,7 +74,7 @@ stool_dat <- data.frame(
 clin_dat <- data.frame(
 
   Day = rep(1:exp_length, each =  total_mice*5),
-  #Group = rep(rep(group_name,times = mouse_num*5), times = exp_length),
+  Group = rep(rep(group_name,times = mouse_num*5), times = exp_length),
   Mouse = rep(rep(c(paste0(rep(group_name,times = mouse_num), "_", mnum)), each = 5), times = exp_length),
   Catagory = rep(c("Activity", "Posture", "Coat", "Diarrhea", "Eyes_Nose"), times = total_mice*exp_length),
   Score = NA
@@ -160,10 +160,10 @@ addStyle(wb, sheet = "Mouse Weights", style = BoldCtr,
 # Clin Score style
 
 addStyle(wb, sheet = "Clinical Score", style = BoldCtrUnder,
-         rows = 1, cols = 1:4, gridExpand = FALSE, stack = FALSE) #Bold Underline headers
+         rows = 1, cols = 1:5, gridExpand = FALSE, stack = FALSE) #Bold Underline headers
 
 addStyle(wb, sheet = "Clinical Score", style = Ctr,
-         rows = 2:((total_mice) * 5 * exp_length), cols = 1:2, gridExpand = T, stack = TRUE)
+         rows = 2:((total_mice) * 5 * exp_length), cols = 1:3, gridExpand = T, stack = TRUE)
 
 # Stool weight style
 
@@ -254,10 +254,19 @@ for (d in 6:(exp_length+5)){
 
 writeData(wb, "Clinical Score", x = clin_dat, startRow = 1,colNames = TRUE) # Fill in group and mouse names
 
+
+# # Merge "Group"
+# for (g in seq(2, ((total_mice*5)*exp_length), by= (total_mice*5)))
+# {
+#   mergeCells(wb, "Clinical Score", cols = 2,
+#              rows = g:(g+4)
+#   ) # Merge mouse name cells with loop
+# }
+
 # Merge "Mouse"
 for (g in seq(2, ((total_mice*5)*exp_length), by= 5))
 {
-  mergeCells(wb, "Clinical Score", cols = 2,
+  mergeCells(wb, "Clinical Score", cols = 3,
              rows = g:(g+4)
   ) # Merge mouse name cells with loop
 }
@@ -276,7 +285,7 @@ for (x in 1:exp_length) {
       wb,
       "Clinical Score",
       new_bg  ,
-      cols = 1:4,
+      cols = 1:5,
       rows = current:(current + (mouse_num[c] * 5) - 1) ,
       gridExpand = T,
       stack = T

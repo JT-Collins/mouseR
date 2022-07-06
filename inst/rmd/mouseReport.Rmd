@@ -20,7 +20,7 @@ knitr::opts_chunk$set(fig.align = 'center')
 knitr::opts_knit$set(root.dir = rstudioapi::getActiveProject())
 ```
 
-```{r}
+```{r, echo=FALSE}
 if(!require(pacman))install.packages("pacman")
 
 pacman::p_load(
@@ -29,25 +29,25 @@ pacman::p_load(
   'dplyr', #
   'labPlots', #
   'tidyr',
-  'gapminder',
+  #'gapminder',
   'ggplot2', #
-  'patchwork',
-  'ggalt',
+  #'patchwork',
+  #'ggalt',
   'ragg', #
-  'forcats',
-  'R.utils',
-  'png',
-  'grid',
-  'ggpubr',
+  #'forcats',
+  #'R.utils',
+  #'png',
+  #'grid',
+  #'ggpubr',
   'scales',
-  'rstatix',
+  #'rstatix',
   'pander' #
 )
 
 labPlots::lab_fonts()
 ```
 
-```{r}
+```{r, echo=FALSE}
 # Excel Column names ------------------------------------------------------
 # Generates a list of excel column names A -> ZZ
 
@@ -57,7 +57,7 @@ excel_col <- c(LETTERS, do.call('paste0',all))
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 # Check if folders exist and if not create them 
 
 # check if sub directory exists 
@@ -83,7 +83,7 @@ if (!file.exists(paste0(rstudioapi::getActiveProject(),"/report"))){
 
 
 
-```{r, message=FALSE}
+```{r, message=FALSE, echo=FALSE}
 dat_file <- params$data
 
 
@@ -95,24 +95,27 @@ weights <- read_excel(dat_file,
 
 clinical <- read_excel(dat_file,
                       sheet = "Clinical Score",
-                      col_types = c("numeric", "text", "text", "numeric")
+                      col_types = c("numeric", "text", "text", "text", "numeric")
 )
 
 ```
 
 ## Mouse Weights
 
-```{r, message=FALSE}
+Our data is in wide format which is generally easier to view in Excel but not a good format for manipulating within R.
+
+```{r, message=FALSE, warning=FALSE}
 weights |>
     janitor::remove_empty() |># Drops columns/rows with only NA values
     select(-`Min Weight`) |> # For this we just want the daily weights
     pander()
 ```
 
+We can easily pivot the data into the long format
 
 ```{r}
 # Tidy and pivot into long form
-cleanDF <-
+cleanDF <- 
   weights |>
     janitor::remove_empty() |># Drops columns/rows with only NA values
     select(-`Min Weight`) |> # For this we just want the daily weights
@@ -122,8 +125,16 @@ cleanDF <-
 
 ```
 
+Look at the top of our new DF to ensure it looks good:
+
 ```{r}
-raw_weight <-
+pander(head(cleanDF))  
+```
+
+
+
+```{r}
+raw_weight_plot <-
   cleanDF |>
   group_by(group, sex, time) |>
   ggplot(aes(x=time, y=g, group = mouse, colour = sex)) +
@@ -132,18 +143,23 @@ raw_weight <-
        caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
   xlab("Time in days") +
   ylab("Weight (g)") +
-  facet_wrap(.~group) + lab_style() +
+  coord_cartesian(xlim = c(min(cleanDF$time), params$exp_length)) +
+  facet_wrap(.~group, ncol = 2) + 
+  lab_style() +
   NULL
 
 
 ```
 
-### raw mouse weights
+### Raw mouse weights
+
+The first thing to do is look at the raw mouse weights and just check that the data looks good i.e. no wild weight changes that would indicate a data entry error.
 
 ```{r, fig.fullwidth = TRUE}
-raw_weight
+raw_weight_plot
 ```
 
+Figures will be saved to a `figures` folder in your working directory.
 
 ```{r, message=FALSE}
 showtext::showtext_opts(dpi = 300)
@@ -154,6 +170,8 @@ showtext::showtext_opts(dpi = 96)
 
 ### Percent change
 
+Because all of the mice have different starting weights (especially if using male and female mice) we need to normalize what we are looking at. Here we will normalize our weights by day Zero - this is the day the mice receive a bacterial challenge.
+
 ```{r}
 per_weight_DF <-
   cleanDF |>
@@ -162,7 +180,7 @@ per_weight_DF <-
   mutate(pct_change = (g / first) * 100)
 
 
-pander(per_weight_DF)
+pander(head(per_weight_DF))
 ```  
 
 ```{r}  
@@ -179,7 +197,9 @@ per_weight_DF |>
   xlab("Time in days") +
   ylab("Percent weight") +
   scale_y_continuous(labels = function(x) paste0(x, "%")) + # Add percent symbol to your axis labels
-  facet_wrap(group~., nrow =2) + lab_style() +
+  coord_cartesian(xlim = c(min(cleanDF$time), params$exp_length)) +
+  facet_wrap(group~., nrow =2) + 
+  lab_style() +
   NULL
 ```
 
@@ -191,9 +211,13 @@ per_weight
 ```
 
 
+
 ```{r, message=FALSE}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Percent_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
+ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Percent_Change_by_mouse_", Sys.Date(), ".png"), 
+       device = ragg::agg_png,  
+       res = 300, 
+       scaling = 1)
 showtext::showtext_opts(dpi = 96)
 
 ```
@@ -201,18 +225,21 @@ showtext::showtext_opts(dpi = 96)
 
 ### Average weight change by group/sex
 
+Because we want to know how our groups are effected overall we can plot the mean weights and standard deviation. First we need to calculate this and generate a new DF. We will add a mouse number column so we can clearly see if any mice have been lost due to disease.
+
 ```{r}
 ave_weight_DF <- 
   per_weight_DF |>
   group_by(group, time) |>
-  summarise(mean_pct_weight = mean(pct_change, na.rm = TRUE), 
-            std_pct_weight = sd(pct_change, na.rm = TRUE), 
-            mouse_num = sum(!is.na(pct_change)), 
+  summarise(mean_pct_weight = mean(pct_change, na.rm = TRUE), # mean weight per group
+            std_pct_weight = sd(pct_change, na.rm = TRUE),  # SD per group
+            mouse_num = sum(!is.na(pct_change)),  # Count of number of mice at each timepoint
             .groups = "drop")
   
 pander(ave_weight_DF)  
 ```  
   
+Plot the new data.
   
 ```{r}
 ave_weight <-
@@ -229,7 +256,9 @@ ave_weight_DF |>
        caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
   xlab("Time in days") +
   ylab("Percent weight") +
-  facet_wrap(.~group, nrow =2) + lab_style() +
+  coord_cartesian(xlim = c(min(cleanDF$time), params$exp_length)) +
+  facet_wrap(.~group, nrow =2) + 
+  lab_style() +
   NULL
 
 ave_weight
@@ -238,7 +267,75 @@ ave_weight
 
 ```{r}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Ave_Percent_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
+ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Ave_Percent_Change_by_mouse_", Sys.Date(), ".png"), 
+       device = ragg::agg_png,  
+       res = 300, 
+       scaling = 1)
 showtext::showtext_opts(dpi = 96)
+```
+
+## Clinical Score
+
+The clinical score is based upon five categories scored 0-3 with 3 being the most severe: 
+
+```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- tribble(
+~Category, ~"0",  ~"1", ~"2", ~"3",
+  "Activity", "Normal",  "Alert/Slow moving", "Lethargic/Shaky", "Inactive unless prodded",
+  "Posture", "Normal",  "Back slanted", "Hunched", "Hunched/Nose down",
+  "Coat", "Normal", "Piloerection", "Rough skin", "Very ruffled/Puff/Ungroomed",
+"Diarrhea", "Normal", "Soft stool/Discoloured (yellowish)", "Wet stained tail mucous +/- blood", "liquid/no stool (ileus)", "Eyes/Nose", "Normal", "Squinted 1/2 closed", "Squinted/Discharge", "Closed/Discharge"
+)
+
+pander(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+```{r}
+# clean up dataframe
+
+clinical <-
+  clinical |>
+  janitor::clean_names() |>
+  na.omit()# Drops rows with NA values
+  
+pander(head(clinical))
+```
+
+As before we first clean up our DF
+
+```{r, fig.fullwidth = TRUE}
+clinical |>
+  group_by(group, mouse, day) |>
+  summarise(total_score = sum(score)) |>
+  ggplot() +
+  geom_line(aes(x=day, y=total_score, colour=mouse)) +
+  scale_x_continuous(breaks= pretty_breaks()) +
+  labs(title = "Clinical Score", 
+       subtitle = NULL,
+       caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
+  xlab("Time in days") +
+  ylab("Clinical Score") +
+  facet_wrap(.~group, nrow = 2) + 
+  lab_style() + 
+  NULL
+
+
+```
+
+```{r,fig.fullwidth = TRUE}
+clinical |>
+  ggplot() +
+  geom_bar(aes(x=day, y=score, fill=category), stat = "identity") +
+  facet_wrap(.~mouse) + 
+  labs(title = "Clinical Score", 
+       subtitle = NULL,
+       caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
+  xlab("Time in days") +
+  ylab("Clinical Scores") +
+  lab_style() +
+  theme(legend.position = "bottom") +
+  NULL
+
+
 ```
 
