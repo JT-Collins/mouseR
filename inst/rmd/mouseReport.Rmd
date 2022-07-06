@@ -17,6 +17,7 @@ knitr::opts_chunk$set(cache = FALSE)
 knitr::opts_chunk$set(fig.retina = 1)
 knitr::opts_chunk$set(dev = "ragg_png")
 knitr::opts_chunk$set(fig.align = 'center')
+knitr::opts_knit$set(root.dir = rstudioapi::getActiveProject())
 ```
 
 ```{r}
@@ -29,10 +30,10 @@ pacman::p_load(
   'labPlots', #
   'tidyr',
   'gapminder',
-  'ggplot2',
+  'ggplot2', #
   'patchwork',
   'ggalt',
-  'ragg',
+  'ragg', #
   'forcats',
   'R.utils',
   'png',
@@ -40,7 +41,7 @@ pacman::p_load(
   'ggpubr',
   'scales',
   'rstatix',
-  'pander'
+  'pander' #
 )
 
 labPlots::lab_fonts()
@@ -54,6 +55,32 @@ all <- expand.grid(LETTERS, LETTERS)
 all <- all[order(all$Var1,all$Var2),]
 excel_col <- c(LETTERS, do.call('paste0',all))
 ```
+
+
+```{r}
+# Check if folders exist and if not create them 
+
+# check if sub directory exists 
+if (!file.exists(paste0(rstudioapi::getActiveProject(),"/figures"))){
+          
+      # create a new sub directory inside
+        # the main path
+        dir.create(file.path(paste0(rstudioapi::getActiveProject(),"/figures")))
+} 
+        
+
+
+# check if sub directory exists 
+if (!file.exists(paste0(rstudioapi::getActiveProject(),"/report"))){
+          
+        # create a new sub directory inside
+        # the main path
+        dir.create(file.path(paste0(rstudioapi::getActiveProject(),"/report")))
+} 
+          
+
+```
+
 
 
 ```{r, message=FALSE}
@@ -120,7 +147,7 @@ raw_weight
 
 ```{r, message=FALSE}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/Weight_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
+ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Weight_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
 showtext::showtext_opts(dpi = 96)
 
 ```
@@ -166,7 +193,7 @@ per_weight
 
 ```{r, message=FALSE}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/Percent_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
+ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Percent_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
 showtext::showtext_opts(dpi = 96)
 
 ```
@@ -211,7 +238,7 @@ ave_weight
 
 ```{r}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/Ave_Percent_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
+ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Ave_Percent_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
 showtext::showtext_opts(dpi = 96)
 ```
 
