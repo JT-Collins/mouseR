@@ -103,6 +103,11 @@ cfu <- read_excel(dat_file,
                       sheet = "CFU",
                       range = paste0("A1:", excel_col[3+params$exp_length],(3 * params$mouseNum)))
 
+surv <- read_excel(dat_file,
+                   sheet = "Survival",
+                   range = paste0("A1:F", (((params$exp_length + 1) * params$groupNum)+1))
+                   )
+
 ```
 
 Mouse report generated on `r Sys.Date()`.

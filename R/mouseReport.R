@@ -2,6 +2,7 @@
 mreport <- function(infile,
                     outfile = paste0("MouseReport_", Sys.Date(), ".html"),
                     mouseNum,
+                    groupNum,
                     exp_length) {
 
     rmarkdown::render(input = paste0(system.file(package = "mouseR"), "/rmd/mouseReport.Rmd"),
@@ -10,6 +11,7 @@ mreport <- function(infile,
                       knit_root_dir = rstudioapi::getActiveProject(),
                       params = list(data = infile,
                                     mouseNum = mouseNum,
+                                    groupNum = groupNum,
                                     exp_length = exp_length),
         encoding = "UTF-8")
 }
