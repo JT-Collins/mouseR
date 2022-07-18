@@ -33,8 +33,9 @@ to “Mouse_Experiment_todaysdate” `exp_length` The total planned length
 of experiment in days `group_name` The names of your groups `mouse_num`
 The number of mice per group
 
-So to set up a sheet for a one week experiment with three groups of mice
-containing 4, 7 and 9 mice you would enter the following:
+For example, to set up a sheet for a one week experiment looking at
+dietary sugars with three groups of mice containing 4, 7 and 9 mice you
+would enter the following:
 
 ``` r
 mouseEx(Spreadsheet_name = "SugarExp_070622",

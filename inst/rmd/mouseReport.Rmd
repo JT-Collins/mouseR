@@ -17,6 +17,7 @@ knitr::opts_chunk$set(cache = FALSE)
 knitr::opts_chunk$set(fig.retina = 1)
 knitr::opts_chunk$set(dev = "ragg_png")
 knitr::opts_chunk$set(fig.align = 'center')
+knitr::opts_chunk$set(error=TRUE)
 knitr::opts_knit$set(root.dir = rstudioapi::getActiveProject())
 ```
 
@@ -96,9 +97,15 @@ weights <- read_excel(dat_file,
 clinical <- read_excel(dat_file,
                       sheet = "Clinical Score",
                       col_types = c("numeric", "text", "text", "text", "numeric")
-)
+                      )
+
+cfu <- read_excel(dat_file,
+                      sheet = "CFU",
+                      range = paste0("A1:", excel_col[3+params$exp_length],(3 * params$mouseNum)))
 
 ```
+
+Mouse report generated on `r Sys.Date()`.
 
 ## Mouse Weights
 
@@ -338,4 +345,8 @@ clinical |>
 
 
 ```
+
+## CFUs
+
+We want to know how much of our bacteria are present - usually in stool but also in tissues if we expect translocation.
 
