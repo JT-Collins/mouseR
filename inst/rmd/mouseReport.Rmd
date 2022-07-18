@@ -31,6 +31,7 @@ pacman::p_load(
   'dplyr', #
   'labPlots', #
   'tidyr',
+  'ggtext',
   #'gapminder',
   'ggplot2', #
   #'patchwork',
@@ -152,13 +153,15 @@ raw_weight_plot <-
   group_by(group, sex, time) |>
   ggplot(aes(x=time, y=g, group = mouse, colour = sex)) +
   geom_line(size = 1)+
-  labs(title = "Weight Change by mouse", 
+  labs(title = "Weight Change by mouse",
+       subtitle = "<span style='color:#AD0000;'>Male</span> and <span style='color:#8B9DA1;'>Female</span> mice",
        caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
   xlab("Time in days") +
   ylab("Weight (g)") +
   coord_cartesian(xlim = c(min(cleanDF$time), params$exp_length)) +
   facet_wrap(.~group, ncol = 2) + 
   lab_style() +
+  theme(legend.position = "none") +
   NULL
 
 
@@ -183,7 +186,7 @@ showtext::showtext_opts(dpi = 96)
 
 ### Percent change
 
-Because all of the mice have different starting weights (especially if using male and female mice) we need to normalize what we are looking at. Here we will normalize our weights by day Zero - this is the day the mice receive a bacterial challenge.
+Because all of the mice have different starting weights (especially if using male and female mice) we need to normalize what we are looking at. Here we will normalize our weights by day **zero** - this is the day the mice receive a bacterial challenge.
 
 ```{r}
 per_weight_DF <-
@@ -205,7 +208,7 @@ per_weight_DF |>
   geom_hline(yintercept = 80, linetype = 3, size = 0.8, colour = "darkred", alpha = 0.5) +
   geom_line(size=1) +
   labs(title = "Percent Weight Change by mouse", 
-      subtitle = "Weight from experiment start",
+      subtitle = "Normalized to day zero \n<span style='color:#AD0000;'>Male</span> and <span style='color:#8B9DA1;'>Female</span> mice",
       caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
   xlab("Time in days") +
   ylab("Percent weight") +
@@ -213,6 +216,7 @@ per_weight_DF |>
   coord_cartesian(xlim = c(min(cleanDF$time), params$exp_length)) +
   facet_wrap(group~., nrow =2) + 
   lab_style() +
+  theme(legend.position = "none") +
   NULL
 ```
 
@@ -225,7 +229,7 @@ per_weight
 
 
 
-```{r, message=FALSE}
+```{r, echo=FALSE, message=FALSE}
 showtext::showtext_opts(dpi = 300)
 ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Percent_Change_by_mouse_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
@@ -278,7 +282,7 @@ ave_weight
 
 ```
 
-```{r}
+```{r, echo=FALSE, message=FALSE}
 showtext::showtext_opts(dpi = 300)
 ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Ave_Percent_Change_by_mouse_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
@@ -321,7 +325,8 @@ clinical |>
   group_by(group, mouse, day) |>
   summarise(total_score = sum(score)) |>
   ggplot() +
-  geom_line(aes(x=day, y=total_score, colour=mouse)) +
+  geom_point(aes(x=day, y=total_score)) +
+  stat_summary(aes(y = total_score, group=1), fun.y=mean, colour="red", geom="line", group=1) +
   scale_x_continuous(breaks= pretty_breaks()) +
   labs(title = "Clinical Score", 
        subtitle = NULL,
