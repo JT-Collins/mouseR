@@ -7,6 +7,7 @@ output:
 params: 
   data: "ExcelSheet"
   mouseNum: NULL
+  groupNum: NULL
   exp_length: NULL    
 editor_options: 
   chunk_output_type: console
