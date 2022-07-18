@@ -162,7 +162,7 @@ raw_weight_plot <-
   facet_wrap(.~group, ncol = 2) + 
   lab_style() +
   theme(legend.position = "none",
-        subtitle = element_markdown()) +
+        plot.subtitle = element_markdown()) +
   NULL
 
 
@@ -218,7 +218,7 @@ per_weight_DF |>
   facet_wrap(group~., nrow =2) + 
   lab_style() +
   theme(legend.position = "none",
-        subtitle = element_markdown()) +
+        plot.subtitle = element_markdown()) +
   NULL
 ```
 
