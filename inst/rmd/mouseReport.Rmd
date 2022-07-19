@@ -323,11 +323,12 @@ pander(head(clinical))
 As before we first clean up our DF
 
 ```{r, fig.fullwidth = TRUE}
-clinical |>
+clin_score <- 
+  clinical |>
   group_by(group, mouse, day) |>
   summarise(total_score = sum(score)) |>
   ggplot() +
-  geom_point(aes(x=day, y=total_score)) +
+  geom_point(aes(x=day, y=total_score), position = position_dodge(0.3)) +
   stat_summary(aes(y = total_score, x = day, group=1), fun=mean, colour="red", geom="line", group=1) +
   scale_x_continuous(breaks= pretty_breaks()) +
   labs(title = "Clinical Score", 
@@ -340,7 +341,19 @@ clinical |>
   NULL
 
 
+clin_score
 ```
+
+
+```{r, echo=FALSE, message=FALSE}
+showtext::showtext_opts(dpi = 300)
+ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Clinical_Score_", Sys.Date(), ".png"), 
+       device = ragg::agg_png,  
+       res = 300, 
+       scaling = 1)
+showtext::showtext_opts(dpi = 96)
+```
+
 
 ```{r,fig.fullwidth = TRUE}
 clinical |>
