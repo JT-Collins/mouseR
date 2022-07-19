@@ -360,14 +360,14 @@ showtext::showtext_opts(dpi = 96)
 ```{r,fig.fullwidth = TRUE}
 clin_score2 <-
   clinical |>
-  group_by(Day) |>
-  filter(sum(Score, na.rm = TRUE) > 0)
+  group_by(day) |>
+  filter(sum(score, na.rm = TRUE) > 0) |> # Drop days that only contain 0 scores
   ggplot() +
   geom_bar(aes(x=day, y=score, fill=category), stat = "identity") +
   scale_y_continuous(expand = c(0, 0)) +
   facet_wrap(.~mouse) + 
   labs(title = "Clinical Score", 
-       subtitle = "Individual Clinical Scores for <span style = 'color:#004E74;'>Diarrhea</span>, <span style = 'color:#8B9DA1;'>Activity</span>, <span style = 'color:#AD0000;'>Coat</span>, <span style = 'color:#00A89D;'>Posture</span>, and <span style = 'color:#FEBE10;'>Eyes & Nose</span>.",
+       subtitle = "Individual Clinical Scores for <span style = 'color:#004E74;'>Diarrhea</span>, <span style = 'color:#8B9DA1;'>Activity</span>, <span style = 'color:#AD0000;'>Coat</span>, <span style = 'color:#00A89D;'>Posture</span>, and <span style = 'color:#FEBE10;'>Eyes & Nose</span>.<br>Only days that contain a score > 0 for at least one mouse are shown (e.g. days with no disease signes are dropped)",
        caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
   xlab("Time in days") +
   ylab("Clinical Scores") +
@@ -449,6 +449,7 @@ cfu_nums2 <-
   scale_y_continuous(breaks= pretty_breaks()) +
   scale_x_continuous(breaks= pretty_breaks()) +
   labs(title = "Bacterial load per g (CFUs)") +
+  theme(panel.grid.major.y = element_line(color="#cbcbcb")) + 
   NULL
   
 
