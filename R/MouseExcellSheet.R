@@ -86,7 +86,7 @@ clin_dat <- data.frame(
   Day = rep(1:exp_length, each =  total_mice*5),
   Group = rep(rep(group_name,times = mouse_num*5), times = exp_length),
   Mouse = rep(rep(c(paste0(rep(group_name,times = mouse_num), "_", mnum)), each = 5), times = exp_length),
-  Catagory = rep(c("Activity", "Posture", "Coat", "Diarrhea", "Eyes_Nose"), times = total_mice*exp_length),
+  Category = rep(c("Activity", "Posture", "Coat", "Diarrhea", "Eyes_Nose"), times = total_mice*exp_length),
   Score = NA
 
 )

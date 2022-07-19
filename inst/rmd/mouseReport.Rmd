@@ -32,6 +32,7 @@ pacman::p_load(
   'labPlots', #
   'tidyr',
   'ggtext',
+  'ggbeeswarm',
   #'gapminder',
   'ggplot2', #
   #'patchwork',
@@ -326,13 +327,13 @@ As before we first clean up our DF
 clin_score <- 
   clinical |>
   group_by(group, mouse, day) |>
-  summarise(total_score = sum(score)) |>
-  ggplot() +
-  geom_point(aes(x=day, y=total_score), position = position_dodge(0.3)) +
-  stat_summary(aes(y = total_score, x = day, group=1), fun=mean, colour="red", geom="line", group=1) +
+  summarise(total_score = sum(score), .groups = "drop") |>
+  ggplot(aes(x=day, y=total_score)) +
+  geom_beeswarm(groupOnX=TRUE) + # from ggbeeswarm package - lays points out side by side instead of overlapping
+  stat_summary(aes(y = total_score, x = day, group=1), fun=median, colour="red", geom="line", group=1) +
   scale_x_continuous(breaks= pretty_breaks()) +
   labs(title = "Clinical Score", 
-       subtitle = NULL,
+       subtitle = "Points represent individual mice, line is the median score",
        caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
   xlab("Time in days") +
   ylab("Clinical Score") +
@@ -355,18 +356,21 @@ showtext::showtext_opts(dpi = 96)
 ```
 
 
+
 ```{r,fig.fullwidth = TRUE}
 clinical |>
   ggplot() +
   geom_bar(aes(x=day, y=score, fill=category), stat = "identity") +
+  scale_y_continuous(expand = c(0, 0)) +
   facet_wrap(.~mouse) + 
   labs(title = "Clinical Score", 
-       subtitle = NULL,
+       subtitle = "Individual Clinical Scores for <span style = 'color:#004E74;'>Diarrhea</span>, <span style = 'color:#8B9DA1;'>Activity</span>, <span style = 'color:#AD0000;'>Coat</span>, <span style = 'color:#00A89D;'>Posture</span>, and <span style = 'color:#FEBE10;'>Eyes & nose</span>.",
        caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
   xlab("Time in days") +
   ylab("Clinical Scores") +
   lab_style() +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "none",
+        plot.subtitle = element_markdown()) +
   NULL
 
 
