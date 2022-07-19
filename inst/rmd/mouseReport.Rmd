@@ -152,7 +152,7 @@ raw_weight_plot <-
   cleanDF |>
   group_by(group, sex, time) |>
   ggplot(aes(x=time, y=g, group = mouse, colour = sex)) +
-  geom_line(size = 1)+
+  geom_line(size = 1, alpha = 0.8)+
   labs(title = "Weight Change by mouse",
        subtitle = "<span style='color:#AD0000;'>Male</span> and <span style='color:#8B9DA1;'>Female</span> mice",
        caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
@@ -204,10 +204,10 @@ pander(head(per_weight_DF))
 per_weight <-
 per_weight_DF |>  
   ggplot(aes(x=time, y=pct_change, group = mouse,  colour = sex)) +
-  geom_hline(yintercept = 100, linetype = 3, size = 0.8, alpha = 0.3) +
-  geom_vline(xintercept = 0, linetype = 3, size = 0.8, alpha = 0.3) +
-  geom_hline(yintercept = 80, linetype = 3, size = 0.8, colour = "darkred", alpha = 0.5) +
-  geom_line(size=1) +
+  geom_hline(yintercept = 100, linetype = 3, size = 0.6, alpha = 0.3) +
+  geom_vline(xintercept = 0, linetype = 3, size = 0.6, alpha = 0.3) +
+  geom_hline(yintercept = 80, linetype = 3, size = 0.6, colour = "darkred", alpha = 0.5) +
+  geom_line(size=1, alpha = 0.8) +
   labs(title = "Percent Weight Change by mouse", 
       subtitle = "Normalized to day zero <span style = 'color:#AD0000;'>Male</span> and <span style = 'color:#8B9DA1;'>Female</span> mice",
       caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
@@ -264,12 +264,12 @@ Plot the new data.
 ave_weight <-
 ave_weight_DF |>
   ggplot() +
-  geom_hline(yintercept = 100, linetype = 3, size = 0.8, alpha = 0.3) +
-  geom_vline(xintercept = 0, linetype = 3, size = 0.8, alpha = 0.3) +
+  geom_hline(yintercept = 100, linetype = 3, size = 0.6, alpha = 0.3) +
+  geom_vline(xintercept = 0, linetype = 3, size = 0.6, alpha = 0.3) +
   geom_ribbon(aes(x = time, ymin = mean_pct_weight - std_pct_weight, ymax = mean_pct_weight + std_pct_weight,
                   group = group), alpha = 0.15) +
   geom_line(aes(x=time, y=mean_pct_weight , group = group), size=1) +
-  geom_text(aes(x=time, y=(max(mean_pct_weight) + 10), label = mouse_num)) +
+  geom_text(aes(x=time, y=(max(mean_pct_weight) + 10), label = mouse_num, colour = "grey20")) +
   labs(title = "Mean Percent Weight Change With SD", 
        subtitle = "Weight from experiment start",
        caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
