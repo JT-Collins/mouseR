@@ -468,7 +468,7 @@ showtext::showtext_opts(dpi = 96)
 
 A quick and dirty stats test. This code runs an ANOVA at each timepoint and is almost certainly the wrong way to do it. You probably want a repeated measures ANOVA to add a correction. **Speak to a stats guy/gal**.
 
-```{r, warnings=FALSE}
+```{r, warnings=FALSE, message=FALSE}
 
 # Statistical test
 

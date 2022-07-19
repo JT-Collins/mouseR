@@ -53,9 +53,10 @@ At the end of the experiment (or at any time before) you can generate
 figures and a report by using the `mreport()` function.
 
 ``` r
-mreport(infile = "SugarExp_070622.xlxs",
-        mouseNum = 20,
-        exp_length = 7)
+mreport(infile = system.file("Example", "Mouse_Experiment_Example.xlsx", package = "mouseR"),
+        mouseNum = 15,
+        groupNum = 3,
+        exp_length = 14)
 ```
 
 Note that the mouse number in this case is the total number of mice.
