@@ -360,6 +360,8 @@ showtext::showtext_opts(dpi = 96)
 ```{r,fig.fullwidth = TRUE}
 clin_score2 <-
   clinical |>
+  group_by(Day) |>
+  filter(sum(Score, na.rm = TRUE) > 0)
   ggplot() +
   geom_bar(aes(x=day, y=score, fill=category), stat = "identity") +
   scale_y_continuous(expand = c(0, 0)) +
@@ -453,9 +455,19 @@ cfu_nums2 <-
 cfu_nums2
 ```
 
+
+```{r, echo=FALSE, message=FALSE}
+showtext::showtext_opts(dpi = 300)
+ggsave(paste0(rstudioapi::getActiveProject(), "/figures/CFUs2_", Sys.Date(), ".png"), 
+       device = ragg::agg_png,  
+       res = 300, 
+       scaling = 1)
+showtext::showtext_opts(dpi = 96)
+```
+
 A quick and dirty stats test. This code runs an ANOVA at each timepoint and is almost certainly the wrong way to do it. You probably want a repeated measures ANOVA to add a correction. **Speak to a stats guy/gal**.
 
-```{r}
+```{r, warnings=FALSE}
 
 # Statistical test
 
