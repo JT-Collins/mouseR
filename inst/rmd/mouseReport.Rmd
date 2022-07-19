@@ -209,7 +209,7 @@ per_weight_DF |>
   geom_hline(yintercept = 80, linetype = 3, size = 0.8, colour = "darkred", alpha = 0.5) +
   geom_line(size=1) +
   labs(title = "Percent Weight Change by mouse", 
-      subtitle = "Normalized to day zero <br><span style = 'color:#AD0000;'>Male</span> and <span style = 'color:#8B9DA1;'>Female</span> mice",
+      subtitle = "Normalized to day zero <span style = 'color:#AD0000;'>Male</span> and <span style = 'color:#8B9DA1;'>Female</span> mice",
       caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
   xlab("Time in days") +
   ylab("Percent weight") +
