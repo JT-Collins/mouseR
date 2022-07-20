@@ -33,6 +33,7 @@ pacman::p_load(
   'tidyr',
   'ggtext',
   'ggbeeswarm',
+  'ggrepel',
   #'gapminder',
   'ggplot2', #
   #'patchwork',
@@ -277,8 +278,9 @@ ave_weight_DF |>
   xlab("Time in days") +
   ylab("Percent weight") +
   coord_cartesian(xlim = c(min(cleanDF$time), params$exp_length)) +
-  facet_wrap(.~group, nrow =2) + 
+  facet_wrap(.~group, nrow = 2) + 
   lab_style() +
+  theme(legend.position = "none") +
   NULL
 
 ave_weight
@@ -341,7 +343,6 @@ clin_score <-
   lab_style() + 
   NULL
 
-
 clin_score
 ```
 
@@ -373,7 +374,9 @@ clin_score2 <-
   ylab("Clinical Scores") +
   lab_style() +
   theme(legend.position = "none",
-        plot.subtitle = element_markdown()) +
+        plot.subtitle = element_markdown(),
+        axis.text.y = element_text(size = 6),
+        strip.text = element_text(size = 8)) +
   NULL
 
 clin_score2
@@ -410,6 +413,7 @@ cleanDF_cfu <-
 ```{r, fig.fullwidth = TRUE}
 cfu_nums <- 
   cleanDF_cfu |>
+  na.omit() |>
   filter(morphotype != "Total") |>
   ggplot() +
   geom_bar(aes(x=time, y=log10(cfu), fill = morphotype), stat = "identity", position = "dodge") +
@@ -420,7 +424,10 @@ cfu_nums <-
        subtitle = "CFUs per gram from <span style = 'color:#8B9DA1;'>spores</span> and <span style = 'color:#AD0000;'>vegetative</span> cells",
        caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
   theme(legend.position = "none",
-        plot.subtitle = element_markdown()) +
+        plot.subtitle = element_markdown(),
+        axis.text.y = element_text(size = 6),
+        strip.text = element_text(size = 8)
+        ) +
   NULL
 
 cfu_nums
@@ -440,6 +447,7 @@ showtext::showtext_opts(dpi = 96)
 ```{r, fig.fullwidth = TRUE}
 cfu_nums2 <- 
   cleanDF_cfu |>
+  na.omit() |>
   filter(morphotype == "Total") |>
   ggplot(aes(x=time, y=log10(cfu), group = group, colour = group)) +
   geom_point(position = position_dodge(width = 0.95), alpha = 0.75) +
@@ -448,10 +456,9 @@ cfu_nums2 <-
   lab_style() +
   scale_y_continuous(breaks= pretty_breaks()) +
   scale_x_continuous(breaks= pretty_breaks()) +
-  labs(title = "Bacterial load per g (CFUs)") +
+  labs(title = "Bacterial load per g stool (CFUs)") +
   theme(panel.grid.major.y = element_line(color="#cbcbcb")) + 
   NULL
-  
 
 cfu_nums2
 ```
@@ -473,16 +480,69 @@ A quick and dirty stats test. This code runs an ANOVA at each timepoint and is a
 # Statistical test
 
 stat.test <- 
-  cleanDF_cfu %>% 
+  cleanDF_cfu |>
+  na.omit() |> # remove rows without data
   group_by(time) |>
   anova_test(cfu~group) |># from rstatix package
   add_significance() 
 
-
-
 pander(stat.test)
-
 
 ```
 
 
+## Mortality
+
+Did any of the groups have mice that died or needed to be euthanised? Because survival curves can often overly on top of each other we will label each line.
+
+
+```{r, fig.fullwidth = TRUE}
+exp_time <- max(surv$Time)
+
+surv_plot <- 
+  surv |>
+  mutate(
+    name_lab = if_else(Time == max(Time), Group, NA_character_)
+  ) |>
+  ggplot(aes(x=Time, y=`S(t)`, colour = Group)) +
+  geom_step(size = 1.5, alpha = 0.8) +
+  lab_style() +
+  scale_y_continuous(breaks= pretty_breaks(), 
+                     labels = scales::percent, 
+                     limits = c(0,1), # set limits to 0-1 regardless of data
+                     expand = expansion(mult = c(0, 0.05))) +
+  scale_x_continuous(breaks= pretty_breaks(), 
+                     expand = expansion(add  = c(0, 3))) + # expands x axis by 3 to make room for names
+  labs(title = "Mouse Survival") +
+  geom_text_repel(
+    aes(color = Group, label = name_lab),
+    size = 5,
+    direction = "y",
+    xlim = c((exp_time+0.8), NA),
+    hjust = 0,
+    segment.size = .75,
+    segment.alpha = .75,
+    segment.linetype = "dotted",
+    box.padding = .4,
+    segment.curvature = -0.1,
+    segment.ncp = 3,
+    segment.angle = 20
+  ) +
+  coord_cartesian(
+    clip = "off"
+  ) +
+  theme(legend.position = "none") +
+  NULL
+
+surv_plot
+```
+
+
+```{r, echo=FALSE, message=FALSE}
+showtext::showtext_opts(dpi = 300)
+ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Survival_", Sys.Date(), ".png"), 
+       device = ragg::agg_png,  
+       res = 300, 
+       scaling = 1)
+showtext::showtext_opts(dpi = 96)
+```
