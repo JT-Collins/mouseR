@@ -107,6 +107,10 @@ cfu <- read_excel(dat_file,
                       sheet = "CFU",
                       range = paste0("A1:", excel_col[3+params$exp_length],(3 * params$mouseNum)))
 
+stool <- read_excel(dat_file,
+                      sheet = "Stool Weights",
+                      range = paste0("A2:", excel_col[3+params$exp_length],((3 * params$mouseNum)+1)))
+
 surv <- read_excel(dat_file,
                    sheet = "Survival",
                    range = paste0("A1:F", (((params$exp_length + 1) * params$groupNum)+1))
@@ -395,10 +399,10 @@ showtext::showtext_opts(dpi = 96)
 
 ## CFUs
 
-We want to know how much of our bacteria are present - usually in stool but also in tissues if we expect translocation.
+We want to know how much of our bacteria are present - usually in stool but also in tissues if we expect translocation. To get normalize our readout to CFUs per gram we also need the stool weight data.
 
 
-```{r}
+```{r tidy-cfus}
 # Tidy and pivot into long form
 cleanDF_cfu <- 
   cfu |>
@@ -407,22 +411,61 @@ cleanDF_cfu <-
     mutate_at("Time", as.numeric) |>
     janitor::clean_names()
 
+pander(head(cleanDF_cfu, n=20))
+```
+
+
+```{r tidy-stool-weights}
+# Tidy and pivot into long form
+cleanDF_stool <- 
+  stool |>
+    janitor::remove_empty() |># Drops columns/rows with only NA values
+    pivot_longer(cols = where(is.double), names_to = "Time", values_to = "stool_weight") |>
+    mutate_at("Time", as.numeric) |>
+    janitor::clean_names() |>
+    filter(weight_mg == "Stool") |>
+    select(-weight_mg)
+
+pander(head(cleanDF_stool, n=20))
+```
+
+The stool weights df `cleanDF_stool` is 1/3 the size of our `cleanDF_cfu` df but we can use `full_join` to correctly merge these dataframes and calculate the CFU per gram.
+
+```{r tidy-cfu-per-gram}
+
+cleanDF_cfu_gram <-
+  full_join(cleanDF_cfu, cleanDF_stool) |>
+  mutate(cfu_per_gram = (cfu/stool_weight)*1000)
+
+pander(head(cleanDF_cfu_gram, n=20))
+
+```
+
+
+```{r, echo=FALSE, message=FALSE}
+
+write.csv(cleanDF_cfu_gram, 
+          paste0(rstudioapi::getActiveProject(), "/report/CFUs_per_gram_", Sys.Date(), ".csv"), 
+          row.names = FALSE)
+
 ```
 
 
 ```{r, fig.fullwidth = TRUE}
 cfu_nums <- 
-  cleanDF_cfu |>
+  cleanDF_cfu_gram |>
   na.omit() |>
-  filter(morphotype != "Total") |>
+  filter(morphotype != "Total") |># look at spores and veg individualy
   ggplot() +
-  geom_bar(aes(x=time, y=log10(cfu), fill = morphotype), stat = "identity", position = "dodge") +
+  geom_bar(aes(x=time, y=log10(cfu_per_gram), fill = morphotype), stat = "identity", position = "dodge") +
   facet_wrap(.~mouse) + 
   lab_style() + 
   scale_y_continuous(expand = c(0, 0), breaks= pretty_breaks()) +
-  labs(title = "Bacterial load per g (CFUs)", 
+  labs(title = "Bacterial load", 
        subtitle = "CFUs per gram from <span style = 'color:#8B9DA1;'>spores</span> and <span style = 'color:#AD0000;'>vegetative</span> cells",
        caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
+  ylab("log10 CFUs per gram") +
+  xlab("Time (days)") +
   theme(legend.position = "none",
         plot.subtitle = element_markdown(),
         axis.text.y = element_text(size = 6),
@@ -446,17 +489,20 @@ showtext::showtext_opts(dpi = 96)
 
 ```{r, fig.fullwidth = TRUE}
 cfu_nums2 <- 
-  cleanDF_cfu |>
+  cleanDF_cfu_gram |>
   na.omit() |>
   filter(morphotype == "Total") |>
-  ggplot(aes(x=time, y=log10(cfu), group = group, colour = group)) +
+  ggplot(aes(x=time, y=log10(cfu_per_gram), group = group, colour = group)) +
   geom_point(position = position_dodge(width = 0.95), alpha = 0.75) +
   stat_summary(geom = "crossbar", fun = mean, 
                width = 0.8, position = position_dodge(width = 0.95)) +
   lab_style() +
   scale_y_continuous(breaks= pretty_breaks()) +
   scale_x_continuous(breaks= pretty_breaks()) +
-  labs(title = "Bacterial load per g stool (CFUs)") +
+  labs(title = "Bacterial load",
+       subtitle = "Total CFUs per gram") +
+  ylab("log10 CFUs per gram") +
+  xlab("Time (days)") +
   theme(panel.grid.major.y = element_line(color="#cbcbcb")) + 
   NULL
 
@@ -480,10 +526,10 @@ A quick and dirty stats test. This code runs an ANOVA at each timepoint and is a
 # Statistical test
 
 stat.test <- 
-  cleanDF_cfu |>
+  cleanDF_cfu_gram |>
   na.omit() |> # remove rows without data
   group_by(time) |>
-  anova_test(cfu~group) |># from rstatix package
+  anova_test(cfu_per_gram~group) |># from rstatix package
   add_significance() 
 
 pander(stat.test)

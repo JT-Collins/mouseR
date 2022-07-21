@@ -9,9 +9,9 @@ mreport <- function(infile,
                       output_file = outfile,
                       output_dir = paste0(rstudioapi::getActiveProject(),"/report"),
                       knit_root_dir = rstudioapi::getActiveProject(),
+                      clean = TRUE,
                       params = list(data = infile,
                                     mouseNum = mouseNum,
                                     groupNum = groupNum,
-                                    exp_length = exp_length),
-        encoding = "UTF-8")
+                                    exp_length = exp_length))
 }
