@@ -49,6 +49,7 @@ addWorksheet(wb, "Mouse Weights")
 addWorksheet(wb, "Clinical Score")
 addWorksheet(wb, "Stool Weights")
 addWorksheet(wb, "CFU")
+#addWorksheet(wb, "CFU per g")
 addWorksheet(wb, "Survival")
 insertImage(wb, "Clinical Score", img, startRow = 2, startCol = 8, width = 8.19, height = 2.13, units = "in") # add our Clinical scores table
 
@@ -178,12 +179,19 @@ addStyle(wb, sheet = "Clinical Score", style = BoldCtrUnder,
 addStyle(wb, sheet = "Clinical Score", style = Ctr,
          rows = 2:((total_mice) * 5 * exp_length), cols = 1:3, gridExpand = T, stack = TRUE)
 
+
 # CFU Style
 addStyle(wb, sheet = "CFU", style = BoldCtrUnder,
          rows = 1, cols = 1:(exp_length+3), gridExpand = FALSE, stack = FALSE) #Bold Underline headers
 
 addStyle(wb, sheet = "CFU", style = Ctr,
          rows = 2:((total_mice * 3) + 1 ), cols = 1:(exp_length+3), gridExpand = T, stack = TRUE)
+
+# addStyle(wb, sheet = "CFU per g", style = BoldCtrUnder,
+#          rows = 1, cols = 1:(exp_length+3), gridExpand = FALSE, stack = FALSE) #Bold Underline headers
+#
+# addStyle(wb, sheet = "CFU per g", style = Ctr,
+#          rows = 2:((total_mice * 3) + 1 ), cols = 1:(exp_length+3), gridExpand = T, stack = TRUE)
 
 
 # Stool weight style
@@ -315,6 +323,48 @@ current = 2
   }
 
 
+# # CFU per gram ------------------------------------------------------------
+#
+# writeData(wb, "CFU per g", x = t(cfu_names), startRow = 1,colNames = FALSE) # Generate column names
+# writeData(wb, "CFU per g", x = cfu_dat, startRow = 2,colNames = FALSE) # Fill in group and mouse names
+#
+# # Merge "Mouse"
+# for (g in seq(2, (total_mice*3), by= 3))
+# {
+#   mergeCells(wb, "CFU per g", cols = 2,
+#              rows = g:(g+2)
+#   ) # Merge mouse name cells with loop
+# }
+#
+# current = 2
+# for (g in 1:group_num){
+#
+#   mergeCells(wb, "CFU per g", cols = 1,
+#              rows = current :((current + mouse_num[g]*3)-1)) # Merge group name cells with loop
+#   current = current + mouse_num[g]*3
+# }
+#
+# # add some colour to distinguish the groups
+# current = 2
+# for (c in 1:group_num)
+# {
+#   new_bg <-
+#     createStyle(fgFill = bg_colours[c],
+#                 border = "TopBottomLeftRight")
+#
+#   addStyle(
+#     wb,
+#     "CFU per g",
+#     new_bg  ,
+#     cols = 1:(exp_length+3),
+#     rows = current:(current + (mouse_num[c] * 3) - 1) ,
+#     gridExpand = T,
+#     stack = T
+#   )
+#
+#   current = current + mouse_num[c] * 3
+# }
+
 
 # Clinical Score ----------------------------------------------------------
 
@@ -363,6 +413,8 @@ for (x in 1:exp_length) {
     current = current + mouse_num[c] * 5
   }
 }
+
+
 
 # Stool weights -----------------------------------------------------------
 
@@ -413,13 +465,9 @@ for (c in 1:group_num)
 
 writeData(wb, "Survival", x = t(surv_names), startRow = 1,colNames = FALSE) # Generate column names
 
-# Loop to add separate surv data for each group
-for(x in seq(8,((5*group_num)+7),5)) {
-  writeData(wb, "Survival", x = t(surv_names2), startRow = 1,startCol = x, colNames = FALSE)
-}
 
 #First data table
-writeData(wb, "Survival", x = surv_dat[ , c("x", "y")] , startRow = 2,colNames = FALSE) # Fill in group and mouse names
+writeData(wb, "Survival", x = surv_dat[ , c("x", "y")] , startRow = 2, colNames = FALSE) # Fill in group and mouse names
 
 y <- 1
 for (x in seq(2, ((exp_length+1)*group_num),exp_length+1)){
@@ -471,6 +519,10 @@ for (g in 1:group_num)
                exp_length + 1
              )) + 1) - exp_length):((g * exp_length + 1) + g)) # Merge group name cells with loop
 }
+
+# return the number format to 0.00 for cols 5 & 6
+addStyle(wb, sheet = "Survival", style = num_style,
+         rows = 2:((total_mice) * 5 * exp_length), cols = 5:6, gridExpand = T, stack = TRUE)
 
 saveWorkbook(wb, paste0(Spreadsheet_name, ".xlsx"), overwrite = FALSE)
 
