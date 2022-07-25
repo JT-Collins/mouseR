@@ -54,10 +54,32 @@ At the end of the experiment (or at any time before) you can generate
 figures and a report by using the `mreport()` function.
 
 ``` r
-mreport(infile = system.file("Example", "Mouse_Experiment_Example.xlsx", package = "mouseR"),
-        mouseNum = 15,
-        groupNum = 3,
-        exp_length = 14)
+mouseRep(infile = system.file("Example", "Mouse_Experiment_Example.xlsx", package = "mouseR"),
+        mouse_num = 15,
+        group_num = 3,
+        exp_length = 14,
+        spores = TRUE)
 ```
 
-Note that the mouse number in this case is the total number of mice.
+or
+
+``` r
+mouseRep(infile = system.file("Example", "Mouse_Experiment_Example_Veg.xlsx", package = "mouseR"),
+        mouse_num = 15,
+        group_num = 3,
+        exp_length = 14,
+        spores = FALSE)
+```
+
+Output files are essentially the same except for the CFUs section.
+
+`infile` The name of your excel spreadsheet, if its not in the same
+folder as your project you’ll need to specify the full path. `mouse_num`
+The **total** number of mice at the start of the experiment. `group_num`
+The number of experimental groups. `exp_length` The length in days.
+`spores` either `TRUE` or `FALSE` depending on whether your bug produces
+spores (e.g., for *E. faecium*, set to ‘spores = FALSE’).
+
+The report will be generated and saved in you project directory in a
+folder called ‘report’. Several figures will also be output to a
+‘figures’ folder.

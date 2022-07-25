@@ -1,9 +1,10 @@
 
-mreport <- function(infile,
+mouseRep <- function(infile,
                     outfile = paste0("MouseReport_", Sys.Date(), ".html"),
-                    mouseNum,
-                    groupNum,
-                    exp_length) {
+                    mouse_num,
+                    group_num,
+                    exp_length,
+                    spores = TRUE) {
 
     rmarkdown::render(input = paste0(system.file(package = "mouseR"), "/rmd/mouseReport.Rmd"),
                       output_file = outfile,
@@ -11,7 +12,8 @@ mreport <- function(infile,
                       knit_root_dir = rstudioapi::getActiveProject(),
                       clean = TRUE,
                       params = list(data = infile,
-                                    mouseNum = mouseNum,
-                                    groupNum = groupNum,
-                                    exp_length = exp_length))
+                                    mouse_num = mouse_num,
+                                    group_num = group_num,
+                                    exp_length = exp_length,
+                                    spores = spores))
 }

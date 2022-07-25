@@ -6,9 +6,10 @@ output:
     highlight: kate
 params: 
   data: "ExcelSheet"
-  mouseNum: NULL
-  groupNum: NULL
+  mouse_num: NULL
+  group_num: NULL
   exp_length: NULL    
+  spores: NULL
 editor_options: 
   chunk_output_type: console
 ---
@@ -34,7 +35,7 @@ pacman::p_load(
   'ggtext',
   'ggbeeswarm',
   'ggrepel',
-  #'gapminder',
+  'DT',
   'ggplot2', #
   #'patchwork',
   #'ggalt',
@@ -46,7 +47,7 @@ pacman::p_load(
   #'ggpubr',
   'scales',
   'rstatix',
-  'pander' #
+  #'pander'
 )
 
 labPlots::lab_fonts()
@@ -83,7 +84,15 @@ if (!file.exists(paste0(rstudioapi::getActiveProject(),"/report"))){
         dir.create(file.path(paste0(rstudioapi::getActiveProject(),"/report")))
 } 
           
-
+create_dt <- function(x){
+  DT::datatable(x,
+                extensions = 'Buttons',
+                rownames = FALSE,
+                options = list(dom = 'Blfrtip',
+                               buttons = c('copy', 'csv'),
+                               lengthMenu = list(c(10,25,50,-1),
+                                                 c(10,25,50,"All"))))
+}
 ```
 
 
@@ -91,30 +100,38 @@ if (!file.exists(paste0(rstudioapi::getActiveProject(),"/report"))){
 ```{r, message=FALSE, echo=FALSE}
 dat_file <- params$data
 
-
+eval_spores <- params$spores
+eval_veg <- !params$spores
 
 weights <- read_excel(dat_file,
                       sheet = "Mouse Weights",
-                      range = paste0("A2:", excel_col[4+params$exp_length],(2 + params$mouseNum)))
+                      range = paste0("A2:", excel_col[4 + params$exp_length], (2 + params$mouse_num)))
 
 
 clinical <- read_excel(dat_file,
                       sheet = "Clinical Score",
                       col_types = c("numeric", "text", "text", "text", "numeric")
                       )
-
-cfu <- read_excel(dat_file,
-                      sheet = "CFU",
-                      range = paste0("A1:", excel_col[3+params$exp_length],(3 * params$mouseNum)))
+if (spores == TRUE) {
+  cfu <- read_excel(dat_file,
+                    sheet = "CFU",
+                    range = paste0("A1:", excel_col[3 + params$exp_length], ((3 * params$mouse_num)+1)))
+} else {
+  cfu <- read_excel(dat_file,
+                    sheet = "CFU",
+                    range = paste0("A1:", excel_col[2 + params$exp_length], (params$mouse_num)+1))
+  
+}
 
 stool <- read_excel(dat_file,
-                      sheet = "Stool Weights",
-                      range = paste0("A2:", excel_col[3+params$exp_length],((3 * params$mouseNum)+1)))
+                    sheet = "Stool Weights",
+                    range = paste0("A2:", excel_col[3 + params$exp_length], ((3 * params$mouse_num) +
+                                                                               2)))
 
 surv <- read_excel(dat_file,
                    sheet = "Survival",
-                   range = paste0("A1:F", (((params$exp_length + 1) * params$groupNum)+1))
-                   )
+                   range = paste0("A1:F", (((params$exp_length + 1) * params$group_num
+                   ) + 1)))
 
 ```
 
@@ -126,29 +143,38 @@ Our data is in wide format which is generally easier to view in Excel but not a 
 
 ```{r, message=FALSE, warning=FALSE}
 weights |>
-    janitor::remove_empty() |># Drops columns/rows with only NA values
-    select(-`Min Weight`) |> # For this we just want the daily weights
-    pander()
+  janitor::remove_empty() |> # Drops columns/rows with only NA values
+  select(-`Min Weight`) |> # For this we just want the daily weights
+  mutate_if(is.numeric,
+            round,
+            digits = 1) |>
+  create_dt()
 ```
 
 We can easily pivot the data into the long format
 
 ```{r}
 # Tidy and pivot into long form
-cleanDF <- 
+cleanDF <-
   weights |>
-    janitor::remove_empty() |># Drops columns/rows with only NA values
-    select(-`Min Weight`) |> # For this we just want the daily weights
-    pivot_longer(cols = where(is.double), names_to = "Time", values_to = "g") |>
-    mutate_at("Time", as.numeric) |>
-    janitor::clean_names()
-
+  janitor::remove_empty() |> # Drops columns/rows with only NA values
+  select(-`Min Weight`) |> # For this we just want the daily weights
+  pivot_longer(cols = where(is.double),
+               names_to = "Time",
+               values_to = "g") |>
+  mutate_at("Time", as.numeric) |>
+  janitor::clean_names() 
 ```
 
-Look at the top of our new DF to ensure it looks good:
+The dataframe is now in a format we can use:
 
 ```{r}
-pander(head(cleanDF))  
+cleanDF |>
+  mutate_if(is.numeric,
+            round,
+            digits = 1) |>
+  create_dt()
+
 ```
 
 
@@ -200,16 +226,19 @@ per_weight_DF <-
   cleanDF |>
   group_by(group, sex, mouse) |>
   mutate(first = g[time == 0]) |>
-  mutate(pct_change = (g / first) * 100)
+  mutate(pct_weight = (g / first) * 100)
 
-
-pander(head(per_weight_DF))
+per_weight_DF |>
+  mutate_if(is.numeric,
+            round,
+            digits = 1) |>
+  create_dt()
 ```  
 
 ```{r}  
 per_weight <-
 per_weight_DF |>  
-  ggplot(aes(x=time, y=pct_change, group = mouse,  colour = sex)) +
+  ggplot(aes(x=time, y=pct_weight, group = mouse,  colour = sex)) +
   geom_hline(yintercept = 100, linetype = 3, size = 0.6, alpha = 0.3) +
   geom_vline(xintercept = 0, linetype = 3, size = 0.6, alpha = 0.3) +
   geom_hline(yintercept = 80, linetype = 3, size = 0.6, colour = "darkred", alpha = 0.5) +
@@ -256,12 +285,16 @@ Because we want to know how our groups are effected overall we can plot the mean
 ave_weight_DF <- 
   per_weight_DF |>
   group_by(group, time) |>
-  summarise(mean_pct_weight = mean(pct_change, na.rm = TRUE), # mean weight per group
-            std_pct_weight = sd(pct_change, na.rm = TRUE),  # SD per group
-            mouse_num = sum(!is.na(pct_change)),  # Count of number of mice at each timepoint
+  summarise(mean_pct_weight = mean(pct_weight, na.rm = TRUE), # mean weight per group
+            std_pct_weight = sd(pct_weight, na.rm = TRUE),  # SD per group
+            mouse_num = sum(!is.na(pct_weight)),  # Count of number of mice at each timepoint
             .groups = "drop")
   
-pander(ave_weight_DF)  
+ave_weight_DF |>
+  mutate_if(is.numeric,
+            round,
+            digits = 1) |>
+  create_dt()
 ```  
   
 Plot the new data.
@@ -313,7 +346,9 @@ tabl <- tribble(
 "Diarrhea", "Normal", "Soft stool/Discoloured (yellowish)", "Wet stained tail mucous +/- blood", "liquid/no stool (ileus)", "Eyes/Nose", "Normal", "Squinted 1/2 closed", "Squinted/Discharge", "Closed/Discharge"
 )
 
-pander(tabl) # output the table in a format good for HTML/PDF/docx conversion
+tabl |>
+  per_weight_DF()
+
 ```
 
 ```{r}
@@ -324,7 +359,9 @@ clinical <-
   janitor::clean_names() |>
   na.omit()# Drops rows with NA values
   
-pander(head(clinical))
+clinical |>
+  create_dt()
+
 ```
 
 As before we first clean up our DF
@@ -411,7 +448,8 @@ cleanDF_cfu <-
     mutate_at("Time", as.numeric) |>
     janitor::clean_names()
 
-pander(head(cleanDF_cfu, n=20))
+cleanDF_cfu |>
+  create_dt()
 ```
 
 
@@ -426,7 +464,8 @@ cleanDF_stool <-
     filter(weight_mg == "Stool") |>
     select(-weight_mg)
 
-pander(head(cleanDF_stool, n=20))
+cleanDF_stool |>
+  create_dt()
 ```
 
 The stool weights df `cleanDF_stool` is 1/3 the size of our `cleanDF_cfu` df but we can use `full_join` to correctly merge these dataframes and calculate the CFU per gram.
@@ -437,21 +476,13 @@ cleanDF_cfu_gram <-
   full_join(cleanDF_cfu, cleanDF_stool) |>
   mutate(cfu_per_gram = (cfu/stool_weight)*1000)
 
-pander(head(cleanDF_cfu_gram, n=20))
+cleanDF_cfu_gram |>
+  create_dt()
 
 ```
 
 
-```{r, echo=FALSE, message=FALSE}
-
-write.csv(cleanDF_cfu_gram, 
-          paste0(rstudioapi::getActiveProject(), "/report/CFUs_per_gram_", Sys.Date(), ".csv"), 
-          row.names = FALSE)
-
-```
-
-
-```{r, fig.fullwidth = TRUE}
+```{r, fig.fullwidth = TRUE, eval = eval_spores, echo = eval_spores}
 cfu_nums <- 
   cleanDF_cfu_gram |>
   na.omit() |>
@@ -477,7 +508,7 @@ cfu_nums
 ```
 
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, eval = eval_spores}
 showtext::showtext_opts(dpi = 300)
 ggsave(paste0(rstudioapi::getActiveProject(), "/figures/CFUs_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
@@ -487,7 +518,7 @@ showtext::showtext_opts(dpi = 96)
 ```
 
 
-```{r, fig.fullwidth = TRUE}
+```{r, fig.fullwidth = TRUE, eval = eval_spores, echo = eval_spores}
 cfu_nums2 <- 
   cleanDF_cfu_gram |>
   na.omit() |>
@@ -509,6 +540,27 @@ cfu_nums2 <-
 cfu_nums2
 ```
 
+```{r, fig.fullwidth = TRUE, eval = eval_veg, echo = eval_veg}
+cfu_nums2 <- 
+  cleanDF_cfu_gram |>
+  na.omit() |>
+  #filter(morphotype == "Total") |>
+  ggplot(aes(x=time, y=log10(cfu_per_gram), group = group, colour = group)) +
+  geom_point(position = position_dodge(width = 0.95), alpha = 0.75) +
+  stat_summary(geom = "crossbar", fun = mean, 
+               width = 0.8, position = position_dodge(width = 0.95)) +
+  lab_style() +
+  scale_y_continuous(breaks= pretty_breaks()) +
+  scale_x_continuous(breaks= pretty_breaks()) +
+  labs(title = "Bacterial load",
+       subtitle = "Total CFUs per gram") +
+  ylab("log10 CFUs per gram") +
+  xlab("Time (days)") +
+  theme(panel.grid.major.y = element_line(color="#cbcbcb")) + 
+  NULL
+
+cfu_nums2
+```
 
 ```{r, echo=FALSE, message=FALSE}
 showtext::showtext_opts(dpi = 300)
@@ -533,7 +585,8 @@ stat.test <-
   adjust_pvalue(method = "holm") |>
   add_significance() 
 
-pander(stat.test)
+stat.test |>
+  create_dt()
 
 ```
 
@@ -561,6 +614,8 @@ surv_plot <-
   scale_x_continuous(breaks= pretty_breaks(), 
                      expand = expansion(add  = c(0, 3))) + # expands x axis by 3 to make room for names
   labs(title = "Mouse Survival") +
+  xlab("Time (days)") +
+  ylab("") +
   geom_text_repel(
     aes(color = Group, label = name_lab),
     size = 5,
