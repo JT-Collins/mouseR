@@ -4,7 +4,9 @@
 mouseEx <- function(Spreadsheet_name = paste0("Mouse_Experiment_", Sys.Date()),
                     exp_length = 14,
                     group_name = c("Control", "Group A", "Group B"),
-                    mouse_num = c(5, 5, 5)) {
+                    mouse_num = c(5, 5, 5),
+                    spores = TRUE )
+  {
 
 if(!require(pacman))install.packages("pacman")
 
@@ -58,8 +60,13 @@ weight_names <- c("Group", "Mouse", "Min Weight","Sex", 0:exp_length) #col names
 weight_names2 <- c("Group", "Mouse", "Weight (mg)", 0:exp_length) #col names for stool weights page
 surv_names <- c("Group", "Time", "Dead", "Alive", "1-(dead/alive)", "S(t)")
 surv_names2 <- c("Group", "Time", "S(t)", "Order")
-cfu_names <- c("Group", "Mouse", "Morphotype", 1:exp_length)
 
+if (spores == TRUE) {
+  cfu_names <- c("Group", "Mouse", "Morphotype", 1:exp_length)
+}
+else {
+  cfu_names <- c("Group", "Mouse", 1:exp_length)
+}
 
 weight_dat <- data.frame(
   x = rep(group_name,times = mouse_num),
@@ -75,12 +82,23 @@ stool_dat <- data.frame(
   z = rep(c("Tube", "Total", "Stool"), times = total_mice)
 )
 
+if (spores == TRUE) {
+  cfu_dat <- data.frame(
+    Group = rep(group_name, times = mouse_num * 3),
+    Mouse = rep(c(paste0(
+      rep(group_name, times = mouse_num), "_", mnum
+    )), each = 3),
+    Morphotype = rep(c("Total", "Spores", "Vegetative"), times = total_mice)
+  )
+} else {
+  cfu_dat <- data.frame(
+    Group = rep(group_name, times = mouse_num),
+    Mouse = rep(c(paste0(
+      rep(group_name, times = mouse_num), "_", mnum
+    )), each = 1)
+  )
 
-cfu_dat <- data.frame(
-  Group = rep(group_name,times = mouse_num*3),
-  Mouse = rep(c(paste0(rep(group_name,times = mouse_num), "_", mnum)), each = 3),
-  Morphotype = rep(c("Total", "Spores", "Vegetative"), times = total_mice)
-)
+}
 
 clin_dat <- data.frame(
 
@@ -124,87 +142,227 @@ surv_dat <- data.frame(
 
 # Style -------------------------------------------------------------------
 
-bg_colours <- c("#FFD9FA", "#FFEB97","#E5F0DA",  "#E5D8D3", "#E4DDED", "#FBDEE1", "#DCF0F8", "#FCDACA"  )
+bg_colours <-
+  c(
+    "#FFD9FA",
+    "#FFEB97",
+    "#E5F0DA",
+    "#E5D8D3",
+    "#E4DDED",
+    "#FBDEE1",
+    "#DCF0F8",
+    "#FCDACA"
+  )
 
 
 
 BoldCtrUnder <- createStyle(
-  fontSize = 11, textDecoration = "bold", halign = "center",
-  valign = "center",  border = "bottom", borderStyle = "double"
+  fontSize = 11,
+  textDecoration = "bold",
+  halign = "center",
+  valign = "center",
+  border = "bottom",
+  borderStyle = "double"
 )
 
 BoldCtr <- createStyle(
-  fontSize = 11, textDecoration = "bold", halign = "center",
+  fontSize = 11,
+  textDecoration = "bold",
+  halign = "center",
   valign = "center"
 )
 
 
 Ctr <- createStyle(
-  fontSize = 11, halign = "center",  valign = "center" , numFmt = "0"
+  fontSize = 11,
+  halign = "center",
+  valign = "center" ,
+  numFmt = "0"
 )
 
 num_style <- createStyle(numFmt = "0.00")
 
-low_weight <- createStyle(fontColour = "#9C0006", bgFill = "#FFC7CE")
+low_weight <-
+  createStyle(fontColour = "#9C0006", bgFill = "#FFC7CE")
 
-addStyle(wb, sheet = "Mouse Weights", style = BoldCtrUnder,
-         rows = 2, cols = 1:(exp_length + 5), gridExpand = FALSE, stack = FALSE) #Bold Underline headers
+addStyle(
+  wb,
+  sheet = "Mouse Weights",
+  style = BoldCtrUnder,
+  rows = 2,
+  cols = 1:(exp_length + 5),
+  gridExpand = FALSE,
+  stack = FALSE
+) #Bold Underline headers
 
-addStyle(wb, sheet = "Mouse Weights", style = BoldCtrUnder,
-         rows = 6 + total_mice, cols = 3:(exp_length + 5), gridExpand = FALSE, stack = FALSE) #Bold Underline headers
+addStyle(
+  wb,
+  sheet = "Mouse Weights",
+  style = BoldCtrUnder,
+  rows = 6 + total_mice,
+  cols = 3:(exp_length + 5),
+  gridExpand = FALSE,
+  stack = FALSE
+) #Bold Underline headers
 
-addStyle(wb, sheet = "Mouse Weights", style = BoldCtr,
-         rows = 1, cols = 5, gridExpand = FALSE, stack = FALSE) #Bold Ctr "Days"
+addStyle(
+  wb,
+  sheet = "Mouse Weights",
+  style = BoldCtr,
+  rows = 1,
+  cols = 5,
+  gridExpand = FALSE,
+  stack = FALSE
+) #Bold Ctr "Days"
 
-addStyle(wb, sheet = "Mouse Weights", style = BoldCtr,
-         rows = 5 + total_mice, cols = 5, gridExpand = FALSE, stack = FALSE) #Bold Ctr "Days"
+addStyle(
+  wb,
+  sheet = "Mouse Weights",
+  style = BoldCtr,
+  rows = 5 + total_mice,
+  cols = 5,
+  gridExpand = FALSE,
+  stack = FALSE
+) #Bold Ctr "Days"
 
-addStyle(wb, sheet = "Mouse Weights", style = Ctr,
-         rows = 3:((total_mice)+2), cols = 1:4, gridExpand = T, stack = TRUE)
+addStyle(
+  wb,
+  sheet = "Mouse Weights",
+  style = Ctr,
+  rows = 3:((total_mice) + 2),
+  cols = 1:4,
+  gridExpand = T,
+  stack = TRUE
+)
 
-addStyle(wb, sheet = "Mouse Weights", style = Ctr,
-         rows = (7 + total_mice):(((total_mice)*2)+6), cols = 1:4, gridExpand = T, stack = TRUE)
+addStyle(
+  wb,
+  sheet = "Mouse Weights",
+  style = Ctr,
+  rows = (7 + total_mice):(((total_mice) * 2) + 6),
+  cols = 1:4,
+  gridExpand = T,
+  stack = TRUE
+)
 
-addStyle(wb, sheet = "Stool Weights", style = BoldCtrUnder,
-         rows = 2, cols = 1:(exp_length + 3), gridExpand = FALSE, stack = FALSE) #Bold Underline headers
+addStyle(
+  wb,
+  sheet = "Stool Weights",
+  style = BoldCtrUnder,
+  rows = 2,
+  cols = 1:(exp_length + 3),
+  gridExpand = FALSE,
+  stack = FALSE
+) #Bold Underline headers
 
-addStyle(wb, sheet = "Mouse Weights", style = BoldCtr,
-         rows = (((total_mice)*2)+9), cols = 3:4, gridExpand = T, stack = TRUE)
+addStyle(
+  wb,
+  sheet = "Mouse Weights",
+  style = BoldCtr,
+  rows = (((total_mice) * 2) + 9),
+  cols = 3:4,
+  gridExpand = T,
+  stack = TRUE
+)
 
 # Clin Score style
 
-addStyle(wb, sheet = "Clinical Score", style = BoldCtrUnder,
-         rows = 1, cols = 1:5, gridExpand = FALSE, stack = FALSE) #Bold Underline headers
+addStyle(
+  wb,
+  sheet = "Clinical Score",
+  style = BoldCtrUnder,
+  rows = 1,
+  cols = 1:5,
+  gridExpand = FALSE,
+  stack = FALSE
+) #Bold Underline headers
 
-addStyle(wb, sheet = "Clinical Score", style = Ctr,
-         rows = 2:((total_mice) * 5 * exp_length), cols = 1:3, gridExpand = T, stack = TRUE)
+addStyle(
+  wb,
+  sheet = "Clinical Score",
+  style = Ctr,
+  rows = 2:((total_mice) * 5 * exp_length),
+  cols = 1:3,
+  gridExpand = T,
+  stack = TRUE
+)
 
 
 # CFU Style
-addStyle(wb, sheet = "CFU", style = BoldCtrUnder,
-         rows = 1, cols = 1:(exp_length+3), gridExpand = FALSE, stack = FALSE) #Bold Underline headers
+if (spores == TRUE) {
+  addStyle(
+    wb,
+    sheet = "CFU",
+    style = BoldCtrUnder,
+    rows = 1,
+    cols = 1:(exp_length + 3),
+    gridExpand = FALSE,
+    stack = FALSE
+  ) #Bold Underline headers
 
-addStyle(wb, sheet = "CFU", style = Ctr,
-         rows = 2:((total_mice * 3) + 1 ), cols = 1:(exp_length+3), gridExpand = T, stack = TRUE)
+  addStyle(
+    wb,
+    sheet = "CFU",
+    style = Ctr,
+    rows = 2:((total_mice * 3) + 1),
+    cols = 1:(exp_length + 3),
+    gridExpand = T,
+    stack = TRUE
+  )
+} else {
+  addStyle(
+    wb,
+    sheet = "CFU",
+    style = BoldCtrUnder,
+    rows = 1,
+    cols = 1:(exp_length + 2),
+    gridExpand = FALSE,
+    stack = FALSE
+  ) #Bold Underline headers
 
-# addStyle(wb, sheet = "CFU per g", style = BoldCtrUnder,
-#          rows = 1, cols = 1:(exp_length+3), gridExpand = FALSE, stack = FALSE) #Bold Underline headers
-#
-# addStyle(wb, sheet = "CFU per g", style = Ctr,
-#          rows = 2:((total_mice * 3) + 1 ), cols = 1:(exp_length+3), gridExpand = T, stack = TRUE)
-
+  addStyle(
+    wb,
+    sheet = "CFU",
+    style = Ctr,
+    rows = 2:((total_mice) + 1),
+    cols = 1:(exp_length + 2),
+    gridExpand = T,
+    stack = TRUE
+  )
+}
 
 # Stool weight style
 
-addStyle(wb, sheet = "Stool Weights", style = BoldCtr,
-         rows = 1, cols = 4, gridExpand = FALSE, stack = FALSE) #Bold Ctr "Mouse Stool Weight"
-addStyle(wb, sheet = "Stool Weights", style = Ctr,
-         rows = 3:((total_mice)+2), cols = 1:2, gridExpand = T, stack = TRUE)
+# Bold Ctr "Mouse Stool Weight"
+addStyle(
+  wb,
+  sheet = "Stool Weights",
+  style = BoldCtr,
+  rows = 1,
+  cols = 4,
+  gridExpand = FALSE,
+  stack = FALSE
+)
+addStyle(
+  wb,
+  sheet = "Stool Weights",
+  style = Ctr,
+  rows = 3:((total_mice) + 2),
+  cols = 1:2,
+  gridExpand = T,
+  stack = TRUE
+)
 
 # Survival style
-addStyle(wb, sheet = "Survival", style = Ctr,
-         rows = 2:((exp_length*(group_num+2))), cols = 1:100, gridExpand = T, stack = TRUE)
-
+addStyle(
+  wb,
+  sheet = "Survival",
+  style = Ctr,
+  rows = 2:((exp_length * (group_num + 2))),
+  cols = 1:100,
+  gridExpand = T,
+  stack = TRUE
+)
 
 
 # Write data to workbook --------------------------------------------------
@@ -282,27 +440,39 @@ for (d in 6:(exp_length+5)){
 
 # CFUs --------------------------------------------------------------------
 
-writeData(wb, "CFU", x = t(cfu_names), startRow = 1,colNames = FALSE) # Generate column names
-writeData(wb, "CFU", x = cfu_dat, startRow = 2,colNames = FALSE) # Fill in group and mouse names
+# Generate column names
+writeData(
+  wb,
+  "CFU",
+  x = t(cfu_names),
+  startRow = 1,
+  colNames = FALSE
+)
 
-# Merge "Mouse"
-for (g in seq(2, (total_mice*3), by= 3))
-{
-  mergeCells(wb, "CFU", cols = 2,
-             rows = g:(g+2)
-  ) # Merge mouse name cells with loop
-}
+# Fill in group and mouse names
+writeData(wb,
+          "CFU",
+          x = cfu_dat,
+          startRow = 2,
+          colNames = FALSE)
 
-current = 2
-for (g in 1:group_num){
+if (spores == TRUE) {
+  # Merge "Mouse"
+  for (g in seq(2, (total_mice * 3), by = 3))
+  {
+    mergeCells(wb, "CFU", cols = 2,
+               rows = g:(g + 2)) # Merge mouse name cells with loop
+  }
 
-  mergeCells(wb, "CFU", cols = 1,
-             rows = current :((current + mouse_num[g]*3)-1)) # Merge group name cells with loop
-  current = current + mouse_num[g]*3
-}
+  current = 2
+  for (g in 1:group_num) {
+    mergeCells(wb, "CFU", cols = 1,
+               rows = current:((current + mouse_num[g] * 3) - 1)) # Merge group name cells with loop
+    current = current + mouse_num[g] * 3
+  }
 
-# add some colour to distinguish the groups
-current = 2
+  # add some colour to distinguish the groups
+  current = 2
   for (c in 1:group_num)
   {
     new_bg <-
@@ -313,7 +483,7 @@ current = 2
       wb,
       "CFU",
       new_bg  ,
-      cols = 1:(exp_length+3),
+      cols = 1:(exp_length + 3),
       rows = current:(current + (mouse_num[c] * 3) - 1) ,
       gridExpand = T,
       stack = T
@@ -321,49 +491,37 @@ current = 2
 
     current = current + mouse_num[c] * 3
   }
+} else {
+  current = 2
+  for (g in 1:group_num) {
+    mergeCells(wb, "CFU", cols = 1,
+               rows = current:((current + mouse_num[g]) - 1)) # Merge group name cells with loop
+    current = current + mouse_num[g]
+  }
 
+  # add some colour to distinguish the groups
+  current = 2
+  for (c in 1:group_num)
+  {
+    new_bg <-
+      createStyle(fgFill = bg_colours[c],
+                  border = "TopBottomLeftRight")
 
-# # CFU per gram ------------------------------------------------------------
-#
-# writeData(wb, "CFU per g", x = t(cfu_names), startRow = 1,colNames = FALSE) # Generate column names
-# writeData(wb, "CFU per g", x = cfu_dat, startRow = 2,colNames = FALSE) # Fill in group and mouse names
-#
-# # Merge "Mouse"
-# for (g in seq(2, (total_mice*3), by= 3))
-# {
-#   mergeCells(wb, "CFU per g", cols = 2,
-#              rows = g:(g+2)
-#   ) # Merge mouse name cells with loop
-# }
-#
-# current = 2
-# for (g in 1:group_num){
-#
-#   mergeCells(wb, "CFU per g", cols = 1,
-#              rows = current :((current + mouse_num[g]*3)-1)) # Merge group name cells with loop
-#   current = current + mouse_num[g]*3
-# }
-#
-# # add some colour to distinguish the groups
-# current = 2
-# for (c in 1:group_num)
-# {
-#   new_bg <-
-#     createStyle(fgFill = bg_colours[c],
-#                 border = "TopBottomLeftRight")
-#
-#   addStyle(
-#     wb,
-#     "CFU per g",
-#     new_bg  ,
-#     cols = 1:(exp_length+3),
-#     rows = current:(current + (mouse_num[c] * 3) - 1) ,
-#     gridExpand = T,
-#     stack = T
-#   )
-#
-#   current = current + mouse_num[c] * 3
-# }
+    addStyle(
+      wb,
+      "CFU",
+      new_bg  ,
+      cols = 1:(exp_length + 2),
+      rows = current:(current + (mouse_num[c]) - 1) ,
+      gridExpand = T,
+      stack = T
+    )
+
+    current = current + mouse_num[c]
+  }
+
+}
+
 
 
 # Clinical Score ----------------------------------------------------------
@@ -418,16 +576,49 @@ for (x in 1:exp_length) {
 
 # Stool weights -----------------------------------------------------------
 
-# writeData(wb, "Stool Weights", x = "Add mouse stool weight below", startRow = 1, startCol = 1, colNames = FALSE)
-writeData(wb, "Stool Weights", x = "Mouse Stool Weight", startRow = 1, startCol = 4, colNames = FALSE) #write "Mouse Stool Weight"
-mergeCells(wb, "Stool Weights", cols = 4:(exp_length+4), rows = 1) # merge cells
-writeData(wb, "Stool Weights", x = t(weight_names2), startRow = 2,colNames = FALSE) # Generate column names
-writeData(wb, "Stool Weights", x = stool_dat, startRow = 3,colNames = FALSE) # Fill in group and mouse names
+# write "Mouse Stool Weight"
+writeData(
+  wb,
+  "Stool Weights",
+  x = "Mouse Stool Weight",
+  startRow = 1,
+  startCol = 4,
+  colNames = FALSE
+)
+
+# merge cells
+mergeCells(wb,
+           "Stool Weights",
+           cols = 4:(exp_length + 4),
+           rows = 1)
+
+# Generate column names
+writeData(
+  wb,
+  "Stool Weights",
+  x = t(weight_names2),
+  startRow = 2,
+  colNames = FALSE
+)
+
+# Fill in group and mouse names
+writeData(
+  wb,
+  "Stool Weights",
+  x = stool_dat,
+  startRow = 3,
+  colNames = FALSE
+)
 
 # add simple formula for stool weight minus tube weight
-for (c in seq(4, exp_length+4)){
-  for (r in seq(5, ((total_mice*3)+3), by= 3)){
-    writeFormula(wb, "Stool Weights", x = paste0("=", excel_col[c], r-1, "-",excel_col[c], r-2 ), xy= c(c,r))
+for (c in seq(4, exp_length + 4)) {
+  for (r in seq(5, ((total_mice * 3) + 3), by = 3)) {
+    writeFormula(
+      wb,
+      "Stool Weights",
+      x = paste0("=", excel_col[c], r - 1, "-", excel_col[c], r - 2),
+      xy = c(c, r)
+    )
   }
 }
 

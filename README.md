@@ -41,7 +41,8 @@ would enter the following:
 mouseEx(Spreadsheet_name = "SugarExp_070622",
         exp_length = 7,
         group_name  = c("Control", "Sucrose", "Fructose"),
-        mouse_num = c(4, 7, 9))
+        mouse_num = c(4, 7, 9),
+        spores = TRUE)
 ```
 
 The spreadsheet will then be generated and placed into your project

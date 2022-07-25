@@ -519,7 +519,7 @@ ggsave(paste0(rstudioapi::getActiveProject(), "/figures/CFUs2_", Sys.Date(), ".p
 showtext::showtext_opts(dpi = 96)
 ```
 
-A quick and dirty stats test. This code runs an ANOVA at each timepoint and is almost certainly the wrong way to do it. You probably want a repeated measures ANOVA to add a correction. **Speak to a stats guy/gal**.
+A quick and dirty stats test. This code runs an ANOVA at each timepoint. You might be better off doing a repeated measures ANOVA or mixed models. **Speak to a stats guy/gal**.
 
 ```{r, warnings=FALSE, message=FALSE}
 
@@ -530,6 +530,7 @@ stat.test <-
   na.omit() |> # remove rows without data
   group_by(time) |>
   anova_test(cfu_per_gram~group) |># from rstatix package
+  adjust_pvalue(method = "holm") |>
   add_significance() 
 
 pander(stat.test)
