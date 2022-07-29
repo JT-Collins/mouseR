@@ -75,7 +75,7 @@ mouseRep(
   infile = system.file("Example", "Mouse_Experiment_Example.xlsx", package = "mouseR"),
   mouse_num = 15,
   group_num = 3,
-  exp_length = 14,
+  exp_length = 16,
   spores = TRUE
 )
 ```
@@ -87,7 +87,7 @@ mouseRep(
   infile = system.file("Example", "Mouse_Experiment_Example_Veg.xlsx", package = "mouseR"),
   mouse_num = 15,
   group_num = 3,
-  exp_length = 14,
+  exp_length = 16,
   spores = FALSE
 )
 ```

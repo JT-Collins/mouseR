@@ -24,7 +24,7 @@ The goal of `mouseR` is to standardize the mouse experiment log sheets used in t
 
 You can install the development version of `mouseR` like so:
 
-``` r
+```{r, eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("JT-Collins/mouseR")
 
@@ -72,7 +72,7 @@ mouseRep(
   infile = system.file("Example", "Mouse_Experiment_Example.xlsx", package = "mouseR"),
   mouse_num = 15,
   group_num = 3,
-  exp_length = 14,
+  exp_length = 16,
   spores = TRUE
 )
 ```
@@ -83,7 +83,7 @@ mouseRep(
   infile = system.file("Example", "Mouse_Experiment_Example_Veg.xlsx", package = "mouseR"),
   mouse_num = 15,
   group_num = 3,
-  exp_length = 14,
+  exp_length = 16,
   spores = FALSE
 )
 ```
