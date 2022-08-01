@@ -210,9 +210,9 @@ raw_weight_plot
 Figures will be saved to a `figures` folder in your working directory.
 
 ```{r, message=FALSE}
-#showtext::showtext_opts(dpi = 300)
+showtext::showtext_opts(dpi = 300)
 ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Weight_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
-#showtext::showtext_opts(dpi = 96)
+showtext::showtext_opts(dpi = 96)
 
 ```
 
@@ -266,12 +266,12 @@ per_weight
 
 
 ```{r, echo=FALSE, message=FALSE}
-#showtext::showtext_opts(dpi = 300)
+showtext::showtext_opts(dpi = 300)
 ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Percent_Change_by_mouse_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
-#showtext::showtext_opts(dpi = 96)
+showtext::showtext_opts(dpi = 96)
 
 ```
 
@@ -324,12 +324,12 @@ ave_weight
 ```
 
 ```{r, echo=FALSE, message=FALSE}
-#showtext::showtext_opts(dpi = 300)
+showtext::showtext_opts(dpi = 300)
 ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Ave_Percent_Change_by_mouse_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
-#showtext::showtext_opts(dpi = 96)
+showtext::showtext_opts(dpi = 96)
 ```
 
 ## Clinical Score
@@ -388,12 +388,12 @@ clin_score
 
 
 ```{r, echo=FALSE, message=FALSE}
-#showtext::showtext_opts(dpi = 300)
+showtext::showtext_opts(dpi = 300)
 ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Clinical_Score_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
-#showtext::showtext_opts(dpi = 96)
+showtext::showtext_opts(dpi = 96)
 ```
 
 
@@ -424,12 +424,12 @@ clin_score2
 
 
 ```{r, echo=FALSE, message=FALSE}
-#showtext::showtext_opts(dpi = 300)
+showtext::showtext_opts(dpi = 300)
 ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Clinical_Score2_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
-#showtext::showtext_opts(dpi = 96)
+showtext::showtext_opts(dpi = 96)
 ```
 
 
@@ -509,12 +509,12 @@ cfu_nums
 
 
 ```{r, echo=FALSE, message=FALSE, eval = eval_spores}
-#showtext::showtext_opts(dpi = 300)
+showtext::showtext_opts(dpi = 300)
 ggsave(paste0(rstudioapi::getActiveProject(), "/figures/CFUs_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
-#showtext::showtext_opts(dpi = 96)
+showtext::showtext_opts(dpi = 96)
 ```
 
 
@@ -562,12 +562,12 @@ cfu_nums2
 ```
 
 ```{r, echo=FALSE, message=FALSE}
-#showtext::showtext_opts(dpi = 300)
+showtext::showtext_opts(dpi = 300)
 ggsave(paste0(rstudioapi::getActiveProject(), "/figures/CFUs2_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
-#showtext::showtext_opts(dpi = 96)
+showtext::showtext_opts(dpi = 96)
 ```
 
 A quick and dirty stats test. This code runs an ANOVA at each timepoint. You might be better off doing a repeated measures ANOVA or mixed models. **Speak to a stats guy/gal**.
@@ -642,10 +642,10 @@ surv_plot
 
 
 ```{r, echo=FALSE, message=FALSE}
-#showtext::showtext_opts(dpi = 300)
+showtext::showtext_opts(dpi = 300)
 ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Survival_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
-#showtext::showtext_opts(dpi = 96)
+showtext::showtext_opts(dpi = 96)
 ```
