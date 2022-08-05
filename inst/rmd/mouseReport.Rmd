@@ -34,7 +34,7 @@ pacman::p_load(
   'readxl', 
   'janitor', 
   'dplyr', 
-  'labPlots', 
+  #'labPlots', 
   'tidyr',
   'ggtext',
   'ggbeeswarm',
@@ -47,7 +47,19 @@ pacman::p_load(
   'pander'
 )
 
-labPlots::lab_fonts()
+uofl_col <- c("#8B9DA1", "#AD0000", "#004E74", "#FEBE10" ,"#00A89D","#7A6C53",  "#AAB43A", "#D9C982")
+
+theme_set(theme_classic())
+theme_update(
+    axis.title.x = ggplot2::element_text(hjust=1),
+    axis.title.y = ggplot2::element_text(hjust=1),
+    strip.background = ggplot2::element_blank(),
+    strip.text = ggplot2::element_text(hjust = 0))
+
+options(ggplot2.discrete.colour = uofl_col )
+options(ggplot2.discrete.fill = uofl_col )
+
+#labPlots::lab_fonts()
 ```
 
 ```{r, echo=FALSE}
@@ -64,21 +76,21 @@ excel_col <- c(LETTERS, do.call('paste0',all))
 # Check if folders exist and if not create them 
 
 # check if sub directory exists 
-if (!file.exists(paste0(rstudioapi::getActiveProject(),"/figures"))){
+if (!file.exists(paste0(rstudioapi::getActiveProject(),"/Figures"))){
           
       # create a new sub directory inside
         # the main path
-        dir.create(file.path(paste0(rstudioapi::getActiveProject(),"/figures")))
+        dir.create(file.path(paste0(rstudioapi::getActiveProject(),"/Figures")))
 } 
         
 
 
 # check if sub directory exists 
-if (!file.exists(paste0(rstudioapi::getActiveProject(),"/report"))){
+if (!file.exists(paste0(rstudioapi::getActiveProject(),"/Report"))){
           
         # create a new sub directory inside
         # the main path
-        dir.create(file.path(paste0(rstudioapi::getActiveProject(),"/report")))
+        dir.create(file.path(paste0(rstudioapi::getActiveProject(),"/Report")))
 } 
           
 create_dt <- function(x){
@@ -191,7 +203,6 @@ raw_weight_plot <-
   ylab("Weight (g)") +
   scale_x_continuous(breaks= pretty_breaks()) +
   facet_wrap(.~group, ncol = 2) + 
-  lab_style() +
   theme(legend.position = "none",
         plot.subtitle = element_markdown()) +
   NULL
@@ -211,7 +222,7 @@ Figures will be saved to a `figures` folder in your working directory.
 
 ```{r, message=FALSE}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Weight_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
+ggsave(paste0(rstudioapi::getActiveProject(), "/Figures/Weight_Change_by_mouse_", Sys.Date(), ".png"), device = ragg::agg_png,  res = 300, scaling = 1)
 showtext::showtext_opts(dpi = 96)
 
 ```
@@ -250,7 +261,6 @@ per_weight_DF |>
   scale_y_continuous(labels = function(x) paste0(x, "%")) + # Add percent symbol to your axis labels
   scale_x_continuous(breaks= pretty_breaks()) +
   facet_wrap(group~., nrow =2) + 
-  lab_style() +
   theme(legend.position = "none",
         plot.subtitle = element_markdown()) +
   NULL
@@ -267,7 +277,7 @@ per_weight
 
 ```{r, echo=FALSE, message=FALSE}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Percent_Change_by_mouse_", Sys.Date(), ".png"), 
+ggsave(paste0(rstudioapi::getActiveProject(), "/Figures/Percent_Change_by_mouse_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
@@ -315,7 +325,6 @@ ave_weight_DF |>
   ylab("Percent weight") +
   scale_x_continuous(breaks= pretty_breaks()) +
   facet_wrap(.~group, nrow = 2) + 
-  lab_style() +
   theme(legend.position = "none") +
   NULL
 
@@ -325,7 +334,7 @@ ave_weight
 
 ```{r, echo=FALSE, message=FALSE}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Ave_Percent_Change_by_mouse_", Sys.Date(), ".png"), 
+ggsave(paste0(rstudioapi::getActiveProject(), "/Figures/Ave_Percent_Change_by_mouse_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
@@ -380,7 +389,6 @@ clin_score <-
   xlab("Time in days") +
   ylab("Clinical Score") +
   facet_wrap(.~group, nrow = 2) + 
-  lab_style() + 
   NULL
 
 clin_score
@@ -389,7 +397,7 @@ clin_score
 
 ```{r, echo=FALSE, message=FALSE}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Clinical_Score_", Sys.Date(), ".png"), 
+ggsave(paste0(rstudioapi::getActiveProject(), "/Figures/Clinical_Score_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
@@ -412,7 +420,6 @@ clin_score2 <-
        caption = paste0("(Figure generated on ", Sys.Date(), ")")) +
   xlab("Time in days") +
   ylab("Clinical Scores") +
-  lab_style() +
   theme(legend.position = "none",
         plot.subtitle = element_markdown(),
         axis.text.y = element_text(size = 6),
@@ -425,7 +432,7 @@ clin_score2
 
 ```{r, echo=FALSE, message=FALSE}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Clinical_Score2_", Sys.Date(), ".png"), 
+ggsave(paste0(rstudioapi::getActiveProject(), "/Figures/Clinical_Score2_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
@@ -490,7 +497,6 @@ cfu_nums <-
   ggplot() +
   geom_bar(aes(x=time, y=log10(cfu_per_gram), fill = morphotype), stat = "identity", position = "dodge") +
   facet_wrap(.~mouse) + 
-  lab_style() + 
   scale_y_continuous(expand = c(0, 0), breaks= pretty_breaks()) +
   labs(title = "Bacterial load", 
        subtitle = "CFUs per gram from <span style = 'color:#8B9DA1;'>spores</span> and <span style = 'color:#AD0000;'>vegetative</span> cells",
@@ -510,7 +516,7 @@ cfu_nums
 
 ```{r, echo=FALSE, message=FALSE, eval = eval_spores}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/figures/CFUs_", Sys.Date(), ".png"), 
+ggsave(paste0(rstudioapi::getActiveProject(), "/Figures/CFUs_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
@@ -527,7 +533,6 @@ cfu_nums2 <-
   geom_point(position = position_dodge(width = 0.95), alpha = 0.75) +
   stat_summary(geom = "crossbar", fun = mean, 
                width = 0.8, position = position_dodge(width = 0.95)) +
-  lab_style() +
   scale_y_continuous(breaks= pretty_breaks()) +
   scale_x_continuous(breaks= pretty_breaks()) +
   labs(title = "Bacterial load",
@@ -548,7 +553,6 @@ cfu_nums2 <-
   geom_point(position = position_dodge(width = 0.95), alpha = 0.75) +
   stat_summary(geom = "crossbar", fun = mean, 
                width = 0.8, position = position_dodge(width = 0.95)) +
-  lab_style() +
   scale_y_continuous(breaks= pretty_breaks()) +
   scale_x_continuous(breaks= pretty_breaks()) +
   labs(title = "Bacterial load",
@@ -563,7 +567,7 @@ cfu_nums2
 
 ```{r, echo=FALSE, message=FALSE}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/figures/CFUs2_", Sys.Date(), ".png"), 
+ggsave(paste0(rstudioapi::getActiveProject(), "/Figures/CFUs2_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
@@ -633,7 +637,7 @@ surv_plot <-
   coord_cartesian(
     clip = "off"
   ) +
-  lab_style() +
+  
   theme(legend.position = "none") +
   NULL
 
@@ -643,9 +647,15 @@ surv_plot
 
 ```{r, echo=FALSE, message=FALSE}
 showtext::showtext_opts(dpi = 300)
-ggsave(paste0(rstudioapi::getActiveProject(), "/figures/Survival_", Sys.Date(), ".png"), 
+ggsave(paste0(rstudioapi::getActiveProject(), "/Figures/Survival_", Sys.Date(), ".png"), 
        device = ragg::agg_png,  
        res = 300, 
        scaling = 1)
 showtext::showtext_opts(dpi = 96)
+```
+
+## Session info
+
+```{r}
+pander(sessionInfo(), compact = FALSE)
 ```

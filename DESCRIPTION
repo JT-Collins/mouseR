@@ -10,8 +10,7 @@ License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Imports:
-    labPlots,
     openxlsx,
     rmdformats
-Remotes: JT-Collins/labPlots
+Remotes:
 RoxygenNote: 7.2.0

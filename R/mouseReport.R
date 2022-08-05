@@ -8,7 +8,7 @@ mouseRep <- function(infile,
 
     rmarkdown::render(input = paste0(system.file(package = "mouseR"), "/rmd/mouseReport.Rmd"),
                       output_file = outfile,
-                      output_dir = paste0(rstudioapi::getActiveProject(),"/report"),
+                      output_dir = paste0(rstudioapi::getActiveProject(),"/Report"),
                       knit_root_dir = rstudioapi::getActiveProject(),
                       clean = TRUE,
                       params = list(data = infile,
