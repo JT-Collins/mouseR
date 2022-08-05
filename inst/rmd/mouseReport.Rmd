@@ -34,7 +34,6 @@ pacman::p_load(
   'readxl', 
   'janitor', 
   'dplyr', 
-  #'labPlots', 
   'tidyr',
   'ggtext',
   'ggbeeswarm',
