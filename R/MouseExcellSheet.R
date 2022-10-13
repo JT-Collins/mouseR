@@ -2,9 +2,9 @@
 
 
 mouseEx <- function(Spreadsheet_name = paste0("Mouse_Experiment_", Sys.Date()),
-                    exp_length = 14,
+                    exp_length = 5,
                     group_name = c("Control", "Group A", "Group B"),
-                    mouse_num = c(5, 5, 5),
+                    mouse_num = c(3, 3, 3),
                     spores = TRUE )
   {
 
@@ -53,13 +53,14 @@ addWorksheet(wb, "Stool Weights")
 addWorksheet(wb, "CFU")
 #addWorksheet(wb, "CFU per g")
 addWorksheet(wb, "Survival")
-insertImage(wb, "Clinical Score", img, startRow = 2, startCol = 8, width = 8.19, height = 2.13, units = "in") # add our Clinical scores table
+insertImage(wb, "Clinical Score", img, startRow = 2, startCol = exp_length+5, width = 9.88, height = 4.07, units = "in") # add our Clinical scores table
 
 
 weight_names <- c("Group", "Mouse", "Min Weight","Sex", 0:(exp_length)) #col names for weights page
 weight_names2 <- c("Group", "Mouse", "Weight (mg)", 0:(exp_length)) #col names for stool weights page
 surv_names <- c("Group", "Time", "Dead", "Alive", "1-(dead/alive)", "S(t)")
 surv_names2 <- c("Group", "Time", "S(t)", "Order")
+clin_names <- c("Group", "Mouse", "Category", 1:(exp_length)) #col names for Clinical Score page
 
 if (spores == TRUE) {
   cfu_names <- c("Group", "Mouse", "Morphotype", 1:(exp_length))
@@ -100,14 +101,20 @@ if (spores == TRUE) {
 
 }
 
+# clin_dat <- data.frame(
+#
+#   Day = rep(1:exp_length, each =  total_mice*5),
+#   Group = rep(rep(group_name,times = mouse_num*5), times = exp_length),
+#   Mouse = rep(rep(c(paste0(rep(group_name,times = mouse_num), "_", mnum)), each = 5), times = exp_length),
+#   Category = rep(c("Activity", "Posture", "Coat", "Diarrhea", "Eyes_Nose"), times = total_mice*exp_length),
+#   Score = NA
+# )
+
 clin_dat <- data.frame(
 
-  Day = rep(1:exp_length, each =  total_mice*5),
-  Group = rep(rep(group_name,times = mouse_num*5), times = exp_length),
-  Mouse = rep(rep(c(paste0(rep(group_name,times = mouse_num), "_", mnum)), each = 5), times = exp_length),
-  Category = rep(c("Activity", "Posture", "Coat", "Diarrhea", "Eyes_Nose"), times = total_mice*exp_length),
-  Score = NA
-
+  Group = rep(group_name,times = mouse_num*3),
+  Mouse = rep(c(paste0(rep(group_name,times = mouse_num), "_", mnum)), each = 3),
+  Category = rep(c("Stool", "Behavior", "Weight loss"), times = total_mice)
 )
 
 weight_percent <- data.frame(
@@ -282,7 +289,7 @@ addStyle(
   sheet = "Clinical Score",
   style = BoldCtrUnder,
   rows = 1,
-  cols = 1:5,
+  cols = 1:(exp_length+3),
   gridExpand = FALSE,
   stack = FALSE
 ) #Bold Underline headers
@@ -291,7 +298,7 @@ addStyle(
   wb,
   sheet = "Clinical Score",
   style = Ctr,
-  rows = 2:(((total_mice) * 5 * exp_length)+1),
+  rows = 2:(((total_mice) * 3 * exp_length)+1),
   cols = 1:3,
   gridExpand = T,
   stack = TRUE
@@ -546,55 +553,101 @@ if (spores == TRUE) {
 
 # Clinical Score ----------------------------------------------------------
 
-writeData(wb, "Clinical Score", x = clin_dat, startRow = 1,colNames = TRUE) # Fill in group and mouse names
+writeData(wb, "Clinical Score", x = clin_dat, startRow = 2,colNames = FALSE) # Fill in group and mouse names
 
-# Merge "Mouse"
-# Merge mouse name cells with loop
+# Generate column names
+writeData(
+  wb,
+  "Clinical Score",
+  x = t(clin_names),
+  startRow = 1,
+  colNames = FALSE
+)
 
-for (g in seq(2, ((total_mice*5)*exp_length), by = 5))
+# Merge names
+
+for (g in seq(2, (total_mice * 3), by = 3))
 {
-  mergeCells(wb, "Clinical Score", cols = 3,
-             rows = g:(g+4)
-  )
+  mergeCells(wb, "Clinical Score", cols = 2,
+             rows = g:(g + 2)) # Merge mouse name cells with loop
 }
-
-# merge Group
-# Merge group name cells with loop
 
 current = 2
-for (x in 1:exp_length) {
-for (g in 1:group_num){
-
-  mergeCells(wb, "Clinical Score", cols = 2,
-             rows = current :((current + mouse_num[g] * 5) - 1))
-
-  current = current + mouse_num[g] * 5
-}
+for (g in 1:group_num) {
+  mergeCells(wb, "Clinical Score", cols = 1,
+             rows = current:((current + mouse_num[g] * 3) - 1)) # Merge group name cells with loop
+  current = current + mouse_num[g] * 3
 }
 
 # add some colour to distinguish the groups
 current = 2
-for (x in 1:(exp_length)) {
-  for (c in 1:group_num)
-  {
-    new_bg <-
-      createStyle(fgFill = bg_colours[c],
-                  border = "TopBottomLeftRight",
-                  numFmt = "0")
+for (c in 1:group_num)
+{
+  new_bg <-
+    createStyle(fgFill = bg_colours[c],
+                border = "TopBottomLeftRight")
 
-    addStyle(
-      wb,
-      "Clinical Score",
-      new_bg  ,
-      cols = 1:5,
-      rows = current:(current + (mouse_num[c] * 5) - 1) ,
-      gridExpand = T,
-      stack = T
-    )
+  addStyle(
+    wb,
+    "Clinical Score",
+    new_bg  ,
+    cols = 1:(exp_length + 3),
+    rows = current:(current + (mouse_num[c] * 3) - 1) ,
+    gridExpand = T,
+    stack = T
+  )
 
-    current = current + mouse_num[c] * 5
-  }
+  current = current + mouse_num[c] * 3
 }
+
+
+# Merge "Mouse"
+# Merge mouse name cells with loop
+#
+# for (g in seq(2, ((total_mice*5)*exp_length), by = 5))
+# {
+#   mergeCells(wb, "Clinical Score", cols = 3,
+#              rows = g:(g+4)
+#   )
+# }
+#
+# # merge Group
+# # Merge group name cells with loop
+#
+# current = 2
+# for (x in 1:exp_length) {
+# for (g in 1:group_num){
+#
+#   mergeCells(wb, "Clinical Score", cols = 2,
+#              rows = current :((current + mouse_num[g] * 5) - 1))
+#
+#   current = current + mouse_num[g] * 5
+# }
+# }
+#
+# # add some colour to distinguish the groups
+# current = 2
+# for (x in 1:(exp_length)) {
+#   for (c in 1:group_num)
+#   {
+#     new_bg <-
+#       createStyle(fgFill = bg_colours[c],
+#                   border = "TopBottomLeftRight",
+#                   numFmt = "0")
+#
+#     addStyle(
+#       wb,
+#       "Clinical Score",
+#       new_bg  ,
+#       cols = 1:5,
+#       rows = current:(current + (mouse_num[c] * 5) - 1) ,
+#       gridExpand = T,
+#       stack = T
+#     )
+#
+#     current = current + mouse_num[c] * 5
+#   }
+# }
 
 
 

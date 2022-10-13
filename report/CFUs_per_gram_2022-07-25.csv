@@ -1,0 +1,617 @@
+"group","mouse","morphotype","time","cfu","stool_weight","cfu_per_gram"
+"Control","Control_1","Total",0,8308675210,20,415433760500
+"Control","Control_1","Total",1,8550848858,46,185888018652.174
+"Control","Control_1","Total",2,2679540019,39,68706154333.3333
+"Control","Control_1","Total",3,126459606,60,2107660100
+"Control","Control_1","Total",4,38504541,52,740471942.307692
+"Control","Control_1","Total",5,450642720,49,9196790204.08163
+"Control","Control_1","Total",6,12649435,37,341876621.621622
+"Control","Control_1","Total",7,671770,36,18660277.7777778
+"Control","Control_1","Total",8,503126,20,25156300
+"Control","Control_1","Total",9,10287,46,223630.434782609
+"Control","Control_1","Total",10,1355,25,54200
+"Control","Control_1","Total",11,5303,59,89881.3559322034
+"Control","Control_1","Total",12,6049,44,137477.272727273
+"Control","Control_1","Total",13,781,45,17355.5555555556
+"Control","Control_1","Spores",0,7274912955,20,363745647750
+"Control","Control_1","Spores",1,47278949,46,1027803239.13043
+"Control","Control_1","Spores",2,1581884113,39,40561131102.5641
+"Control","Control_1","Spores",3,23359481,60,389324683.333333
+"Control","Control_1","Spores",4,38208405,52,734777019.230769
+"Control","Control_1","Spores",5,240738389,49,4913028346.93878
+"Control","Control_1","Spores",6,5275064,37,142569297.297297
+"Control","Control_1","Spores",7,335910,36,9330833.33333333
+"Control","Control_1","Spores",8,345034,20,17251700
+"Control","Control_1","Spores",9,7979,46,173456.52173913
+"Control","Control_1","Spores",10,1079,25,43160
+"Control","Control_1","Spores",11,225,59,3813.5593220339
+"Control","Control_1","Spores",12,3104,44,70545.4545454545
+"Control","Control_1","Spores",13,361,45,8022.22222222222
+"Control","Control_1","Vegetative",0,1033762255,20,51688112750
+"Control","Control_1","Vegetative",1,8503569909,46,184860215413.043
+"Control","Control_1","Vegetative",2,1097655906,39,28145023230.7692
+"Control","Control_1","Vegetative",3,103100125,60,1718335416.66667
+"Control","Control_1","Vegetative",4,296136,52,5694923.07692308
+"Control","Control_1","Vegetative",5,209904331,49,4283761857.14286
+"Control","Control_1","Vegetative",6,7374371,37,199307324.324324
+"Control","Control_1","Vegetative",7,335860,36,9329444.44444445
+"Control","Control_1","Vegetative",8,158092,20,7904600
+"Control","Control_1","Vegetative",9,2308,46,50173.9130434783
+"Control","Control_1","Vegetative",10,276,25,11040
+"Control","Control_1","Vegetative",11,5078,59,86067.7966101695
+"Control","Control_1","Vegetative",12,2945,44,66931.8181818182
+"Control","Control_1","Vegetative",13,420,45,9333.33333333333
+"Control","Control_2","Total",0,3038538496,25,121541539840
+"Control","Control_2","Total",1,2239828092,58,38617725724.1379
+"Control","Control_2","Total",2,1226542531,46,26663968065.2174
+"Control","Control_2","Total",3,389099305,21,18528538333.3333
+"Control","Control_2","Total",4,411030547,24,17126272791.6667
+"Control","Control_2","Total",5,317626321,47,6758006829.78723
+"Control","Control_2","Total",6,69654484,56,1243830071.42857
+"Control","Control_2","Total",7,645703,33,19566757.5757576
+"Control","Control_2","Total",8,88327,28,3154535.71428571
+"Control","Control_2","Total",9,49209,38,1294973.68421053
+"Control","Control_2","Total",10,1745,29,60172.4137931034
+"Control","Control_2","Total",11,237,52,4557.69230769231
+"Control","Control_2","Total",12,2742,28,97928.5714285714
+"Control","Control_2","Total",13,6959,26,267653.846153846
+"Control","Control_2","Spores",0,1118204805,25,44728192200
+"Control","Control_2","Spores",1,886728026,58,15288414241.3793
+"Control","Control_2","Spores",2,416635557,46,9057294717.3913
+"Control","Control_2","Spores",3,184902339,21,8804873285.71428
+"Control","Control_2","Spores",4,248881323,24,10370055125
+"Control","Control_2","Spores",5,165718853,47,3525933042.55319
+"Control","Control_2","Spores",6,6245971,56,111535196.428571
+"Control","Control_2","Spores",7,39963,33,1211000
+"Control","Control_2","Spores",8,84762,28,3027214.28571429
+"Control","Control_2","Spores",9,3425,38,90131.5789473684
+"Control","Control_2","Spores",10,924,29,31862.0689655172
+"Control","Control_2","Spores",11,29,52,557.692307692308
+"Control","Control_2","Spores",12,194,28,6928.57142857143
+"Control","Control_2","Spores",13,803,26,30884.6153846154
+"Control","Control_2","Vegetative",0,1920333691,25,76813347640
+"Control","Control_2","Vegetative",1,1353100066,58,23329311482.7586
+"Control","Control_2","Vegetative",2,809906974,46,17606673347.8261
+"Control","Control_2","Vegetative",3,204196966,21,9723665047.61905
+"Control","Control_2","Vegetative",4,162149224,24,6756217666.66667
+"Control","Control_2","Vegetative",5,151907468,47,3232073787.23404
+"Control","Control_2","Vegetative",6,63408513,56,1132294875
+"Control","Control_2","Vegetative",7,605740,33,18355757.5757576
+"Control","Control_2","Vegetative",8,3565,28,127321.428571429
+"Control","Control_2","Vegetative",9,45784,38,1204842.10526316
+"Control","Control_2","Vegetative",10,821,29,28310.3448275862
+"Control","Control_2","Vegetative",11,208,52,4000
+"Control","Control_2","Vegetative",12,2548,28,91000
+"Control","Control_2","Vegetative",13,6156,26,236769.230769231
+"Control","Control_3","Total",0,5859902088,37,158375732108.108
+"Control","Control_3","Total",1,1991671510,39,51068500256.4103
+"Control","Control_3","Total",2,4910566674,36,136404629833.333
+"Control","Control_3","Total",3,NA,41,NA
+"Control","Control_3","Total",4,NA,28,NA
+"Control","Control_3","Total",5,NA,24,NA
+"Control","Control_3","Total",6,NA,32,NA
+"Control","Control_3","Total",7,NA,55,NA
+"Control","Control_3","Total",8,NA,53,NA
+"Control","Control_3","Total",9,NA,51,NA
+"Control","Control_3","Total",10,NA,33,NA
+"Control","Control_3","Total",11,NA,23,NA
+"Control","Control_3","Total",12,NA,38,NA
+"Control","Control_3","Total",13,NA,27,NA
+"Control","Control_3","Spores",0,2409781132,37,65129219783.7838
+"Control","Control_3","Spores",1,581144042,39,14901129282.0513
+"Control","Control_3","Spores",2,2809781851,36,78049495861.1111
+"Control","Control_3","Spores",3,NA,41,NA
+"Control","Control_3","Spores",4,NA,28,NA
+"Control","Control_3","Spores",5,NA,24,NA
+"Control","Control_3","Spores",6,NA,32,NA
+"Control","Control_3","Spores",7,NA,55,NA
+"Control","Control_3","Spores",8,NA,53,NA
+"Control","Control_3","Spores",9,NA,51,NA
+"Control","Control_3","Spores",10,NA,33,NA
+"Control","Control_3","Spores",11,NA,23,NA
+"Control","Control_3","Spores",12,NA,38,NA
+"Control","Control_3","Spores",13,NA,27,NA
+"Control","Control_3","Vegetative",0,3450120956,37,93246512324.3243
+"Control","Control_3","Vegetative",1,1410527468,39,36167370974.359
+"Control","Control_3","Vegetative",2,2100784823,36,58355133972.2222
+"Control","Control_3","Vegetative",3,NA,41,NA
+"Control","Control_3","Vegetative",4,NA,28,NA
+"Control","Control_3","Vegetative",5,NA,24,NA
+"Control","Control_3","Vegetative",6,NA,32,NA
+"Control","Control_3","Vegetative",7,NA,55,NA
+"Control","Control_3","Vegetative",8,NA,53,NA
+"Control","Control_3","Vegetative",9,NA,51,NA
+"Control","Control_3","Vegetative",10,NA,33,NA
+"Control","Control_3","Vegetative",11,NA,23,NA
+"Control","Control_3","Vegetative",12,NA,38,NA
+"Control","Control_3","Vegetative",13,NA,27,NA
+"Control","Control_4","Total",0,6188843567,21,294706836523.81
+"Control","Control_4","Total",1,2436361049,59,41294255067.7966
+"Control","Control_4","Total",2,6380988475,27,236332906481.482
+"Control","Control_4","Total",3,202614001,39,5195230794.87179
+"Control","Control_4","Total",4,242716403,33,7355042515.15152
+"Control","Control_4","Total",5,524114347,37,14165252621.6216
+"Control","Control_4","Total",6,12733894,26,489765153.846154
+"Control","Control_4","Total",7,644515,43,14988720.9302326
+"Control","Control_4","Total",8,689742,50,13794840
+"Control","Control_4","Total",9,58676,39,1504512.82051282
+"Control","Control_4","Total",10,6173,28,220464.285714286
+"Control","Control_4","Total",11,1173,27,43444.4444444444
+"Control","Control_4","Total",12,1764,58,30413.7931034483
+"Control","Control_4","Total",13,1951,58,33637.9310344828
+"Control","Control_4","Spores",0,5840613100,21,278124433333.333
+"Control","Control_4","Spores",1,2420993843,59,41033793949.1525
+"Control","Control_4","Spores",2,30993343,27,1147901592.59259
+"Control","Control_4","Spores",3,196080655,39,5027709102.5641
+"Control","Control_4","Spores",4,204223420,33,6188588484.84848
+"Control","Control_4","Spores",5,357474703,37,9661478459.45946
+"Control","Control_4","Spores",6,368639,26,14178423.0769231
+"Control","Control_4","Spores",7,467918,43,10881813.9534884
+"Control","Control_4","Spores",8,258432,50,5168640
+"Control","Control_4","Spores",9,46252,39,1185948.71794872
+"Control","Control_4","Spores",10,635,28,22678.5714285714
+"Control","Control_4","Spores",11,112,27,4148.14814814815
+"Control","Control_4","Spores",12,799,58,13775.8620689655
+"Control","Control_4","Spores",13,15,58,258.620689655172
+"Control","Control_4","Vegetative",0,348230467,21,16582403190.4762
+"Control","Control_4","Vegetative",1,15367206,59,260461118.644068
+"Control","Control_4","Vegetative",2,6349995132,27,235185004888.889
+"Control","Control_4","Vegetative",3,6533346,39,167521692.307692
+"Control","Control_4","Vegetative",4,38492983,33,1166454030.30303
+"Control","Control_4","Vegetative",5,166639644,37,4503774162.16216
+"Control","Control_4","Vegetative",6,12365255,26,475586730.769231
+"Control","Control_4","Vegetative",7,176597,43,4106906.97674419
+"Control","Control_4","Vegetative",8,431310,50,8626200
+"Control","Control_4","Vegetative",9,12424,39,318564.102564103
+"Control","Control_4","Vegetative",10,5538,28,197785.714285714
+"Control","Control_4","Vegetative",11,1061,27,39296.2962962963
+"Control","Control_4","Vegetative",12,965,58,16637.9310344828
+"Control","Control_4","Vegetative",13,1936,58,33379.3103448276
+"Control","Control_5","Total",0,8453085524,49,172511949469.388
+"Control","Control_5","Total",1,5593842630,48,116538388125
+"Control","Control_5","Total",2,9798358464,37,264820499027.027
+"Control","Control_5","Total",3,484284528,47,10303926127.6596
+"Control","Control_5","Total",4,676911243,26,26035047807.6923
+"Control","Control_5","Total",5,472860470,30,15762015666.6667
+"Control","Control_5","Total",6,66742808,46,1450930608.69565
+"Control","Control_5","Total",7,536775,52,10322596.1538462
+"Control","Control_5","Total",8,295867,29,10202310.3448276
+"Control","Control_5","Total",9,31247,26,1201807.69230769
+"Control","Control_5","Total",10,1716,51,33647.0588235294
+"Control","Control_5","Total",11,2372,22,107818.181818182
+"Control","Control_5","Total",12,6282,51,123176.470588235
+"Control","Control_5","Total",13,760,39,19487.1794871795
+"Control","Control_5","Spores",0,2143978592,49,43754665142.8571
+"Control","Control_5","Spores",1,5073896297,48,105706172854.167
+"Control","Control_5","Spores",2,2900086606,37,78380719081.0811
+"Control","Control_5","Spores",3,418884104,47,8912427744.68085
+"Control","Control_5","Spores",4,68298530,26,2626866538.46154
+"Control","Control_5","Spores",5,23479203,30,782640100
+"Control","Control_5","Spores",6,6423341,46,139637847.826087
+"Control","Control_5","Spores",7,224328,52,4314000
+"Control","Control_5","Spores",8,169780,29,5854482.75862069
+"Control","Control_5","Spores",9,10428,26,401076.923076923
+"Control","Control_5","Spores",10,914,51,17921.568627451
+"Control","Control_5","Spores",11,833,22,37863.6363636364
+"Control","Control_5","Spores",12,853,51,16725.4901960784
+"Control","Control_5","Spores",13,249,39,6384.61538461538
+"Control","Control_5","Vegetative",0,6309106932,49,128757284326.531
+"Control","Control_5","Vegetative",1,519946333,48,10832215270.8333
+"Control","Control_5","Vegetative",2,6898271858,37,186439779945.946
+"Control","Control_5","Vegetative",3,65400424,47,1391498382.97872
+"Control","Control_5","Vegetative",4,608612713,26,23408181269.2308
+"Control","Control_5","Vegetative",5,449381267,30,14979375566.6667
+"Control","Control_5","Vegetative",6,60319467,46,1311292760.86957
+"Control","Control_5","Vegetative",7,312447,52,6008596.15384615
+"Control","Control_5","Vegetative",8,126087,29,4347827.5862069
+"Control","Control_5","Vegetative",9,20819,26,800730.769230769
+"Control","Control_5","Vegetative",10,802,51,15725.4901960784
+"Control","Control_5","Vegetative",11,1539,22,69954.5454545455
+"Control","Control_5","Vegetative",12,5429,51,106450.980392157
+"Control","Control_5","Vegetative",13,511,39,13102.5641025641
+"Group A","Group A_1","Total",0,1628898054,47,34657405404.2553
+"Group A","Group A_1","Total",1,5634564769,46,122490538456.522
+"Group A","Group A_1","Total",2,NA,30,NA
+"Group A","Group A_1","Total",3,NA,21,NA
+"Group A","Group A_1","Total",4,NA,53,NA
+"Group A","Group A_1","Total",5,NA,24,NA
+"Group A","Group A_1","Total",6,NA,44,NA
+"Group A","Group A_1","Total",7,NA,33,NA
+"Group A","Group A_1","Total",8,NA,28,NA
+"Group A","Group A_1","Total",9,NA,47,NA
+"Group A","Group A_1","Total",10,NA,38,NA
+"Group A","Group A_1","Total",11,NA,42,NA
+"Group A","Group A_1","Total",12,NA,36,NA
+"Group A","Group A_1","Total",13,NA,45,NA
+"Group A","Group A_1","Spores",0,112566164,47,2395024765.95745
+"Group A","Group A_1","Spores",1,1768483995,46,38445304239.1304
+"Group A","Group A_1","Spores",2,NA,30,NA
+"Group A","Group A_1","Spores",3,NA,21,NA
+"Group A","Group A_1","Spores",4,NA,53,NA
+"Group A","Group A_1","Spores",5,NA,24,NA
+"Group A","Group A_1","Spores",6,NA,44,NA
+"Group A","Group A_1","Spores",7,NA,33,NA
+"Group A","Group A_1","Spores",8,NA,28,NA
+"Group A","Group A_1","Spores",9,NA,47,NA
+"Group A","Group A_1","Spores",10,NA,38,NA
+"Group A","Group A_1","Spores",11,NA,42,NA
+"Group A","Group A_1","Spores",12,NA,36,NA
+"Group A","Group A_1","Spores",13,NA,45,NA
+"Group A","Group A_1","Vegetative",0,1516331890,47,32262380638.2979
+"Group A","Group A_1","Vegetative",1,3866080774,46,84045234217.3913
+"Group A","Group A_1","Vegetative",2,NA,30,NA
+"Group A","Group A_1","Vegetative",3,NA,21,NA
+"Group A","Group A_1","Vegetative",4,NA,53,NA
+"Group A","Group A_1","Vegetative",5,NA,24,NA
+"Group A","Group A_1","Vegetative",6,NA,44,NA
+"Group A","Group A_1","Vegetative",7,NA,33,NA
+"Group A","Group A_1","Vegetative",8,NA,28,NA
+"Group A","Group A_1","Vegetative",9,NA,47,NA
+"Group A","Group A_1","Vegetative",10,NA,38,NA
+"Group A","Group A_1","Vegetative",11,NA,42,NA
+"Group A","Group A_1","Vegetative",12,NA,36,NA
+"Group A","Group A_1","Vegetative",13,NA,45,NA
+"Group A","Group A_2","Total",0,3786122204,56,67609325071.4286
+"Group A","Group A_2","Total",1,2345708291,32,73303384093.75
+"Group A","Group A_2","Total",2,8800118128,49,179594247510.204
+"Group A","Group A_2","Total",3,587708974,32,18365905437.5
+"Group A","Group A_2","Total",4,647566519,54,11991972574.0741
+"Group A","Group A_2","Total",5,233169522,59,3952025796.61017
+"Group A","Group A_2","Total",6,36781347,21,1751492714.28571
+"Group A","Group A_2","Total",7,280637,51,5502686.2745098
+"Group A","Group A_2","Total",8,12493,60,208216.666666667
+"Group A","Group A_2","Total",9,26322,37,711405.405405405
+"Group A","Group A_2","Total",10,6222,35,177771.428571429
+"Group A","Group A_2","Total",11,4813,51,94372.5490196078
+"Group A","Group A_2","Total",12,3381,29,116586.206896552
+"Group A","Group A_2","Total",13,2170,34,63823.5294117647
+"Group A","Group A_2","Spores",0,1995933968,56,35641678000
+"Group A","Group A_2","Spores",1,208121848,32,6503807750
+"Group A","Group A_2","Spores",2,6769885075,49,138160919897.959
+"Group A","Group A_2","Spores",3,305409422,32,9544044437.5
+"Group A","Group A_2","Spores",4,394290761,54,7301680759.25926
+"Group A","Group A_2","Spores",5,86428131,59,1464883576.27119
+"Group A","Group A_2","Spores",6,23097963,21,1099903000
+"Group A","Group A_2","Spores",7,99872,51,1958274.50980392
+"Group A","Group A_2","Spores",8,10516,60,175266.666666667
+"Group A","Group A_2","Spores",9,21604,37,583891.891891892
+"Group A","Group A_2","Spores",10,4752,35,135771.428571429
+"Group A","Group A_2","Spores",11,4570,51,89607.8431372549
+"Group A","Group A_2","Spores",12,2079,29,71689.6551724138
+"Group A","Group A_2","Spores",13,970,34,28529.4117647059
+"Group A","Group A_2","Vegetative",0,1790188236,56,31967647071.4286
+"Group A","Group A_2","Vegetative",1,2137586443,32,66799576343.75
+"Group A","Group A_2","Vegetative",2,2030233053,49,41433327612.2449
+"Group A","Group A_2","Vegetative",3,282299552,32,8821861000
+"Group A","Group A_2","Vegetative",4,253275758,54,4690291814.81481
+"Group A","Group A_2","Vegetative",5,146741391,59,2487142220.33898
+"Group A","Group A_2","Vegetative",6,13683384,21,651589714.285714
+"Group A","Group A_2","Vegetative",7,180765,51,3544411.76470588
+"Group A","Group A_2","Vegetative",8,1977,60,32950
+"Group A","Group A_2","Vegetative",9,4718,37,127513.513513514
+"Group A","Group A_2","Vegetative",10,1470,35,42000
+"Group A","Group A_2","Vegetative",11,243,51,4764.70588235294
+"Group A","Group A_2","Vegetative",12,1302,29,44896.5517241379
+"Group A","Group A_2","Vegetative",13,1200,34,35294.1176470588
+"Group A","Group A_3","Total",0,5423728712,49,110688341061.224
+"Group A","Group A_3","Total",1,7790017094,28,278214896214.286
+"Group A","Group A_3","Total",2,2446700489,57,42924569982.4561
+"Group A","Group A_3","Total",3,377590316,32,11799697375
+"Group A","Group A_3","Total",4,405112896,37,10948997189.1892
+"Group A","Group A_3","Total",5,155035103,42,3691311976.19048
+"Group A","Group A_3","Total",6,4626829,31,149252548.387097
+"Group A","Group A_3","Total",7,627772,46,13647217.3913043
+"Group A","Group A_3","Total",8,612755,29,21129482.7586207
+"Group A","Group A_3","Total",9,16710,29,576206.896551724
+"Group A","Group A_3","Total",10,6781,20,339050
+"Group A","Group A_3","Total",11,4743,37,128189.189189189
+"Group A","Group A_3","Total",12,7291,39,186948.717948718
+"Group A","Group A_3","Total",13,7152,22,325090.909090909
+"Group A","Group A_3","Spores",0,3329929039,49,67957735489.7959
+"Group A","Group A_3","Spores",1,191623554,28,6843698357.14286
+"Group A","Group A_3","Spores",2,1504033649,57,26386555245.614
+"Group A","Group A_3","Spores",3,105405184,32,3293912000
+"Group A","Group A_3","Spores",4,388558910,37,10501592162.1622
+"Group A","Group A_3","Spores",5,131798264,42,3138053904.7619
+"Group A","Group A_3","Spores",6,2944381,31,94980032.2580645
+"Group A","Group A_3","Spores",7,148580,46,3230000
+"Group A","Group A_3","Spores",8,518988,29,17896137.9310345
+"Group A","Group A_3","Spores",9,10470,29,361034.482758621
+"Group A","Group A_3","Spores",10,5236,20,261800
+"Group A","Group A_3","Spores",11,2414,37,65243.2432432432
+"Group A","Group A_3","Spores",12,5424,39,139076.923076923
+"Group A","Group A_3","Spores",13,6267,22,284863.636363636
+"Group A","Group A_3","Vegetative",0,2093799673,49,42730605571.4286
+"Group A","Group A_3","Vegetative",1,7598393540,28,271371197857.143
+"Group A","Group A_3","Vegetative",2,942666840,57,16538014736.8421
+"Group A","Group A_3","Vegetative",3,272185132,32,8505785375
+"Group A","Group A_3","Vegetative",4,16553986,37,447405027.027027
+"Group A","Group A_3","Vegetative",5,23236839,42,553258071.428571
+"Group A","Group A_3","Vegetative",6,1682448,31,54272516.1290323
+"Group A","Group A_3","Vegetative",7,479192,46,10417217.3913043
+"Group A","Group A_3","Vegetative",8,93767,29,3233344.82758621
+"Group A","Group A_3","Vegetative",9,6240,29,215172.413793103
+"Group A","Group A_3","Vegetative",10,1545,20,77250
+"Group A","Group A_3","Vegetative",11,2329,37,62945.9459459459
+"Group A","Group A_3","Vegetative",12,1867,39,47871.7948717949
+"Group A","Group A_3","Vegetative",13,885,22,40227.2727272727
+"Group A","Group A_4","Total",0,6149555963,43,143012929372.093
+"Group A","Group A_4","Total",1,7487759743,51,146818818490.196
+"Group A","Group A_4","Total",2,4199842311,28,149994368250
+"Group A","Group A_4","Total",3,110033443,53,2076102698.11321
+"Group A","Group A_4","Total",4,577826557,39,14816065564.1026
+"Group A","Group A_4","Total",5,693246880,41,16908460487.8049
+"Group A","Group A_4","Total",6,37986128,22,1726642181.81818
+"Group A","Group A_4","Total",7,590728,48,12306833.3333333
+"Group A","Group A_4","Total",8,119849,41,2923146.34146341
+"Group A","Group A_4","Total",9,16096,26,619076.923076923
+"Group A","Group A_4","Total",10,5514,51,108117.647058824
+"Group A","Group A_4","Total",11,1703,56,30410.7142857143
+"Group A","Group A_4","Total",12,5635,21,268333.333333333
+"Group A","Group A_4","Total",13,2266,31,73096.7741935484
+"Group A","Group A_4","Spores",0,4149010767,43,96488622488.3721
+"Group A","Group A_4","Spores",1,365437252,51,7165436313.72549
+"Group A","Group A_4","Spores",2,1251601983,28,44700070821.4286
+"Group A","Group A_4","Spores",3,93512520,53,1764387169.81132
+"Group A","Group A_4","Spores",4,93465598,39,2396553794.8718
+"Group A","Group A_4","Spores",5,119212360,41,2907618536.58537
+"Group A","Group A_4","Spores",6,18665885,22,848449318.181818
+"Group A","Group A_4","Spores",7,367686,48,7660125
+"Group A","Group A_4","Spores",8,6231,41,151975.609756098
+"Group A","Group A_4","Spores",9,9332,26,358923.076923077
+"Group A","Group A_4","Spores",10,3990,51,78235.2941176471
+"Group A","Group A_4","Spores",11,1549,56,27660.7142857143
+"Group A","Group A_4","Spores",12,4250,21,202380.952380952
+"Group A","Group A_4","Spores",13,941,31,30354.8387096774
+"Group A","Group A_4","Vegetative",0,2000545196,43,46524306883.7209
+"Group A","Group A_4","Vegetative",1,7122322491,51,139653382176.471
+"Group A","Group A_4","Vegetative",2,2948240328,28,105294297428.571
+"Group A","Group A_4","Vegetative",3,16520923,53,311715528.301887
+"Group A","Group A_4","Vegetative",4,484360959,39,12419511769.2308
+"Group A","Group A_4","Vegetative",5,574034520,41,14000841951.2195
+"Group A","Group A_4","Vegetative",6,19320243,22,878192863.636364
+"Group A","Group A_4","Vegetative",7,223042,48,4646708.33333333
+"Group A","Group A_4","Vegetative",8,113618,41,2771170.73170732
+"Group A","Group A_4","Vegetative",9,6764,26,260153.846153846
+"Group A","Group A_4","Vegetative",10,1524,51,29882.3529411765
+"Group A","Group A_4","Vegetative",11,154,56,2750
+"Group A","Group A_4","Vegetative",12,1385,21,65952.3809523809
+"Group A","Group A_4","Vegetative",13,1325,31,42741.935483871
+"Group A","Group A_5","Total",0,9155736453,51,179524244176.471
+"Group A","Group A_5","Total",1,5752635947,30,191754531566.667
+"Group A","Group A_5","Total",2,7292719783,59,123605420050.847
+"Group A","Group A_5","Total",3,244857096,43,5694351069.76744
+"Group A","Group A_5","Total",4,678047717,58,11690477879.3103
+"Group A","Group A_5","Total",5,494177993,41,12053121780.4878
+"Group A","Group A_5","Total",6,37013192,22,1682417818.18182
+"Group A","Group A_5","Total",7,594706,42,14159666.6666667
+"Group A","Group A_5","Total",8,385046,23,16741130.4347826
+"Group A","Group A_5","Total",9,60277,36,1674361.11111111
+"Group A","Group A_5","Total",10,5286,21,251714.285714286
+"Group A","Group A_5","Total",11,3631,29,125206.896551724
+"Group A","Group A_5","Total",12,3773,24,157208.333333333
+"Group A","Group A_5","Total",13,2687,44,61068.1818181818
+"Group A","Group A_5","Spores",0,8675902052,51,170115726509.804
+"Group A","Group A_5","Spores",1,3600276976,30,120009232533.333
+"Group A","Group A_5","Spores",2,2626599057,59,44518628084.7458
+"Group A","Group A_5","Spores",3,65079162,43,1513468883.72093
+"Group A","Group A_5","Spores",4,106128804,58,1829806965.51724
+"Group A","Group A_5","Spores",5,169207720,41,4127017560.97561
+"Group A","Group A_5","Spores",6,33325185,22,1514781136.36364
+"Group A","Group A_5","Spores",7,7472,42,177904.761904762
+"Group A","Group A_5","Spores",8,193005,23,8391521.73913043
+"Group A","Group A_5","Spores",9,58844,36,1634555.55555556
+"Group A","Group A_5","Spores",10,5148,21,245142.857142857
+"Group A","Group A_5","Spores",11,670,29,23103.4482758621
+"Group A","Group A_5","Spores",12,212,24,8833.33333333333
+"Group A","Group A_5","Spores",13,2217,44,50386.3636363636
+"Group A","Group A_5","Vegetative",0,479834401,51,9408517666.66667
+"Group A","Group A_5","Vegetative",1,2152358971,30,71745299033.3333
+"Group A","Group A_5","Vegetative",2,4666120726,59,79086791966.1017
+"Group A","Group A_5","Vegetative",3,179777934,43,4180882186.04651
+"Group A","Group A_5","Vegetative",4,571918913,58,9860670913.7931
+"Group A","Group A_5","Vegetative",5,324970273,41,7926104219.5122
+"Group A","Group A_5","Vegetative",6,3688007,22,167636681.818182
+"Group A","Group A_5","Vegetative",7,587234,42,13981761.9047619
+"Group A","Group A_5","Vegetative",8,192041,23,8349608.69565217
+"Group A","Group A_5","Vegetative",9,1433,36,39805.5555555556
+"Group A","Group A_5","Vegetative",10,138,21,6571.42857142857
+"Group A","Group A_5","Vegetative",11,2961,29,102103.448275862
+"Group A","Group A_5","Vegetative",12,3561,24,148375
+"Group A","Group A_5","Vegetative",13,470,44,10681.8181818182
+"Group B","Group B_1","Total",0,3154480294,55,57354187163.6364
+"Group B","Group B_1","Total",1,2924686262,20,146234313100
+"Group B","Group B_1","Total",2,819599958,44,18627271772.7273
+"Group B","Group B_1","Total",3,306262281,35,8750350885.71428
+"Group B","Group B_1","Total",4,283715027,30,9457167566.66667
+"Group B","Group B_1","Total",5,16634309,30,554476966.666667
+"Group B","Group B_1","Total",6,34123101,23,1483613086.95652
+"Group B","Group B_1","Total",7,193490,26,7441923.07692308
+"Group B","Group B_1","Total",8,248133,60,4135550
+"Group B","Group B_1","Total",9,58139,44,1321340.90909091
+"Group B","Group B_1","Total",10,727,34,21382.3529411765
+"Group B","Group B_1","Total",11,5739,45,127533.333333333
+"Group B","Group B_1","Total",12,3625,59,61440.6779661017
+"Group B","Group B_1","Total",13,1726,31,55677.4193548387
+"Group B","Group B_1","Spores",0,3062313022,55,55678418581.8182
+"Group B","Group B_1","Spores",1,1753790607,20,87689530350
+"Group B","Group B_1","Spores",2,494754045,44,11244410113.6364
+"Group B","Group B_1","Spores",3,168937824,35,4826794971.42857
+"Group B","Group B_1","Spores",4,79971984,30,2665732800
+"Group B","Group B_1","Spores",5,11069332,30,368977733.333333
+"Group B","Group B_1","Spores",6,1292408,23,56191652.173913
+"Group B","Group B_1","Spores",7,97428,26,3747230.76923077
+"Group B","Group B_1","Spores",8,63222,60,1053700
+"Group B","Group B_1","Spores",9,23728,44,539272.727272727
+"Group B","Group B_1","Spores",10,306,34,9000
+"Group B","Group B_1","Spores",11,162,45,3600
+"Group B","Group B_1","Spores",12,3354,59,56847.4576271186
+"Group B","Group B_1","Spores",13,362,31,11677.4193548387
+"Group B","Group B_1","Vegetative",0,92167272,55,1675768581.81818
+"Group B","Group B_1","Vegetative",1,1170895655,20,58544782750
+"Group B","Group B_1","Vegetative",2,324845913,44,7382861659.09091
+"Group B","Group B_1","Vegetative",3,137324457,35,3923555914.28571
+"Group B","Group B_1","Vegetative",4,203743043,30,6791434766.66667
+"Group B","Group B_1","Vegetative",5,5564977,30,185499233.333333
+"Group B","Group B_1","Vegetative",6,32830693,23,1427421434.78261
+"Group B","Group B_1","Vegetative",7,96062,26,3694692.30769231
+"Group B","Group B_1","Vegetative",8,184911,60,3081850
+"Group B","Group B_1","Vegetative",9,34411,44,782068.181818182
+"Group B","Group B_1","Vegetative",10,421,34,12382.3529411765
+"Group B","Group B_1","Vegetative",11,5577,45,123933.333333333
+"Group B","Group B_1","Vegetative",12,271,59,4593.22033898305
+"Group B","Group B_1","Vegetative",13,1364,31,44000
+"Group B","Group B_2","Total",0,8520868244,50,170417364880
+"Group B","Group B_2","Total",1,1237958186,40,30948954650
+"Group B","Group B_2","Total",2,5062906506,50,101258130120
+"Group B","Group B_2","Total",3,NA,33,NA
+"Group B","Group B_2","Total",4,NA,33,NA
+"Group B","Group B_2","Total",5,NA,56,NA
+"Group B","Group B_2","Total",6,NA,44,NA
+"Group B","Group B_2","Total",7,NA,58,NA
+"Group B","Group B_2","Total",8,NA,24,NA
+"Group B","Group B_2","Total",9,NA,32,NA
+"Group B","Group B_2","Total",10,NA,31,NA
+"Group B","Group B_2","Total",11,NA,23,NA
+"Group B","Group B_2","Total",12,NA,27,NA
+"Group B","Group B_2","Total",13,NA,32,NA
+"Group B","Group B_2","Spores",0,5991780101,50,119835602020
+"Group B","Group B_2","Spores",1,637690188,40,15942254700
+"Group B","Group B_2","Spores",2,2895081547,50,57901630940
+"Group B","Group B_2","Spores",3,NA,33,NA
+"Group B","Group B_2","Spores",4,NA,33,NA
+"Group B","Group B_2","Spores",5,NA,56,NA
+"Group B","Group B_2","Spores",6,NA,44,NA
+"Group B","Group B_2","Spores",7,NA,58,NA
+"Group B","Group B_2","Spores",8,NA,24,NA
+"Group B","Group B_2","Spores",9,NA,32,NA
+"Group B","Group B_2","Spores",10,NA,31,NA
+"Group B","Group B_2","Spores",11,NA,23,NA
+"Group B","Group B_2","Spores",12,NA,27,NA
+"Group B","Group B_2","Spores",13,NA,32,NA
+"Group B","Group B_2","Vegetative",0,2529088143,50,50581762860
+"Group B","Group B_2","Vegetative",1,600267998,40,15006699950
+"Group B","Group B_2","Vegetative",2,2167824959,50,43356499180
+"Group B","Group B_2","Vegetative",3,NA,33,NA
+"Group B","Group B_2","Vegetative",4,NA,33,NA
+"Group B","Group B_2","Vegetative",5,NA,56,NA
+"Group B","Group B_2","Vegetative",6,NA,44,NA
+"Group B","Group B_2","Vegetative",7,NA,58,NA
+"Group B","Group B_2","Vegetative",8,NA,24,NA
+"Group B","Group B_2","Vegetative",9,NA,32,NA
+"Group B","Group B_2","Vegetative",10,NA,31,NA
+"Group B","Group B_2","Vegetative",11,NA,23,NA
+"Group B","Group B_2","Vegetative",12,NA,27,NA
+"Group B","Group B_2","Vegetative",13,NA,32,NA
+"Group B","Group B_3","Total",0,5438414826,49,110988057673.469
+"Group B","Group B_3","Total",1,292374118,48,6091127458.33333
+"Group B","Group B_3","Total",2,NA,49,NA
+"Group B","Group B_3","Total",3,NA,42,NA
+"Group B","Group B_3","Total",4,NA,21,NA
+"Group B","Group B_3","Total",5,NA,25,NA
+"Group B","Group B_3","Total",6,NA,37,NA
+"Group B","Group B_3","Total",7,NA,59,NA
+"Group B","Group B_3","Total",8,NA,32,NA
+"Group B","Group B_3","Total",9,NA,45,NA
+"Group B","Group B_3","Total",10,NA,27,NA
+"Group B","Group B_3","Total",11,NA,48,NA
+"Group B","Group B_3","Total",12,NA,54,NA
+"Group B","Group B_3","Total",13,NA,45,NA
+"Group B","Group B_3","Spores",0,420756964,49,8586876816.32653
+"Group B","Group B_3","Spores",1,84358764,48,1757474250
+"Group B","Group B_3","Spores",2,NA,49,NA
+"Group B","Group B_3","Spores",3,NA,42,NA
+"Group B","Group B_3","Spores",4,NA,21,NA
+"Group B","Group B_3","Spores",5,NA,25,NA
+"Group B","Group B_3","Spores",6,NA,37,NA
+"Group B","Group B_3","Spores",7,NA,59,NA
+"Group B","Group B_3","Spores",8,NA,32,NA
+"Group B","Group B_3","Spores",9,NA,45,NA
+"Group B","Group B_3","Spores",10,NA,27,NA
+"Group B","Group B_3","Spores",11,NA,48,NA
+"Group B","Group B_3","Spores",12,NA,54,NA
+"Group B","Group B_3","Spores",13,NA,45,NA
+"Group B","Group B_3","Vegetative",0,5017657862,49,102401180857.143
+"Group B","Group B_3","Vegetative",1,208015354,48,4333653208.33333
+"Group B","Group B_3","Vegetative",2,NA,49,NA
+"Group B","Group B_3","Vegetative",3,NA,42,NA
+"Group B","Group B_3","Vegetative",4,NA,21,NA
+"Group B","Group B_3","Vegetative",5,NA,25,NA
+"Group B","Group B_3","Vegetative",6,NA,37,NA
+"Group B","Group B_3","Vegetative",7,NA,59,NA
+"Group B","Group B_3","Vegetative",8,NA,32,NA
+"Group B","Group B_3","Vegetative",9,NA,45,NA
+"Group B","Group B_3","Vegetative",10,NA,27,NA
+"Group B","Group B_3","Vegetative",11,NA,48,NA
+"Group B","Group B_3","Vegetative",12,NA,54,NA
+"Group B","Group B_3","Vegetative",13,NA,45,NA
+"Group B","Group B_4","Total",0,2199736958,53,41504470905.6604
+"Group B","Group B_4","Total",1,4307807432,26,165684901230.769
+"Group B","Group B_4","Total",2,6248373031,35,178524943742.857
+"Group B","Group B_4","Total",3,121973127,22,5544233045.45455
+"Group B","Group B_4","Total",4,146958800,37,3971859459.45946
+"Group B","Group B_4","Total",5,610518419,31,19694142548.3871
+"Group B","Group B_4","Total",6,69146393,50,1382927860
+"Group B","Group B_4","Total",7,35239,38,927342.105263158
+"Group B","Group B_4","Total",8,486411,56,8685910.71428571
+"Group B","Group B_4","Total",9,68701,32,2146906.25
+"Group B","Group B_4","Total",10,4629,41,112902.43902439
+"Group B","Group B_4","Total",11,1155,43,26860.4651162791
+"Group B","Group B_4","Total",12,2866,43,66651.1627906977
+"Group B","Group B_4","Total",13,6094,41,148634.146341463
+"Group B","Group B_4","Spores",0,1474087112,53,27812964377.3585
+"Group B","Group B_4","Spores",1,1893378395,26,72822245961.5385
+"Group B","Group B_4","Spores",2,3921632758,35,112046650228.571
+"Group B","Group B_4","Spores",3,52002377,22,2363744409.09091
+"Group B","Group B_4","Spores",4,114072440,37,3083038918.91892
+"Group B","Group B_4","Spores",5,596118376,31,19229625032.2581
+"Group B","Group B_4","Spores",6,49539802,50,990796040
+"Group B","Group B_4","Spores",7,20469,38,538657.894736842
+"Group B","Group B_4","Spores",8,291387,56,5203339.28571429
+"Group B","Group B_4","Spores",9,65847,32,2057718.75
+"Group B","Group B_4","Spores",10,3401,41,82951.2195121951
+"Group B","Group B_4","Spores",11,257,43,5976.74418604651
+"Group B","Group B_4","Spores",12,1840,43,42790.6976744186
+"Group B","Group B_4","Spores",13,3287,41,80170.7317073171
+"Group B","Group B_4","Vegetative",0,725649846,53,13691506528.3019
+"Group B","Group B_4","Vegetative",1,2414429037,26,92862655269.2308
+"Group B","Group B_4","Vegetative",2,2326740273,35,66478293514.2857
+"Group B","Group B_4","Vegetative",3,69970750,22,3180488636.36364
+"Group B","Group B_4","Vegetative",4,32886360,37,888820540.540541
+"Group B","Group B_4","Vegetative",5,14400043,31,464517516.129032
+"Group B","Group B_4","Vegetative",6,19606591,50,392131820
+"Group B","Group B_4","Vegetative",7,14770,38,388684.210526316
+"Group B","Group B_4","Vegetative",8,195024,56,3482571.42857143
+"Group B","Group B_4","Vegetative",9,2854,32,89187.5
+"Group B","Group B_4","Vegetative",10,1228,41,29951.2195121951
+"Group B","Group B_4","Vegetative",11,898,43,20883.7209302326
+"Group B","Group B_4","Vegetative",12,1026,43,23860.4651162791
+"Group B","Group B_4","Vegetative",13,2807,41,68463.4146341463
+"Group B","Group B_5","Total",0,1641109540,NA,NA
+"Group B","Group B_5","Total",1,5216057028,NA,NA
+"Group B","Group B_5","Total",2,984427371,NA,NA
+"Group B","Group B_5","Total",3,621998503,NA,NA
+"Group B","Group B_5","Total",4,778268763,NA,NA
+"Group B","Group B_5","Total",5,496383620,NA,NA
+"Group B","Group B_5","Total",6,51419365,NA,NA
+"Group B","Group B_5","Total",7,441682,NA,NA
+"Group B","Group B_5","Total",8,748363,NA,NA
+"Group B","Group B_5","Total",9,22985,NA,NA
+"Group B","Group B_5","Total",10,6250,NA,NA
+"Group B","Group B_5","Total",11,2243,NA,NA
+"Group B","Group B_5","Total",12,6007,NA,NA
+"Group B","Group B_5","Total",13,2090,NA,NA
+"Group B","Group B_5","Spores",0,113696276,NA,NA
+"Group B","Group B_5","Spores",1,4324883232,NA,NA
+"Group B","Group B_5","Spores",2,892861090,NA,NA
+"Group B","Group B_5","Spores",3,601952850,NA,NA
+"Group B","Group B_5","Spores",4,444256209,NA,NA
+"Group B","Group B_5","Spores",5,322360097,NA,NA
+"Group B","Group B_5","Spores",6,22517915,NA,NA
+"Group B","Group B_5","Spores",7,91506,NA,NA
+"Group B","Group B_5","Spores",8,377962,NA,NA
+"Group B","Group B_5","Spores",9,17822,NA,NA
+"Group B","Group B_5","Spores",10,2550,NA,NA
+"Group B","Group B_5","Spores",11,1529,NA,NA
+"Group B","Group B_5","Spores",12,918,NA,NA
+"Group B","Group B_5","Spores",13,752,NA,NA
